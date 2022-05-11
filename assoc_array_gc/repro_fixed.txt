@@ -1,0 +1,2487 @@
+Before GC:
+NODE: 0x55dab10992c0
+   [1] NODE: 0x55dab1099360
+      [0] NODE: 0x55dab1099400
+         [0] LEAF: 0xffff88bb7f022d00
+         [1] LEAF: 0xffff88bf09a50c00
+      [1] NODE: 0x55dab10994a0
+         [0] LEAF: 0xffff88b50248fc00
+         [1] LEAF: 0xffff88bc33764400
+         [d] LEAF: 0xffff88bcc511a100
+         [e] LEAF: 0xffff88b4f2672800
+         [f] LEAF: 0xffff88b5bf6db100
+      [2] LEAF: 0xffff88b1b8f45700
+      [3] NODE: 0x55dab1099540
+         [1] LEAF: 0xffff88b65bd17f00
+         [e] LEAF: 0xffff88bfaf045e00
+         [f] LEAF: 0xffff88b2fc14a100
+      [4] NODE: 0x55dab10995e0
+         [0] LEAF: 0xffff88bf08e8c600
+         [1] LEAF: 0xffff88b9f7cd1600
+         [c] LEAF: 0xffff88b658b69000
+         [d] LEAF: 0xffff88bae33dfb00
+         [e] LEAF: 0xffff88bb681cbf00
+         [f] LEAF: 0xffff88bd73f4da00
+      [5] NODE: 0x55dab1099680
+         [0] LEAF: 0xffff88b3f9f0ae00
+         [1] LEAF: 0xffff88b3af414900
+         [c] LEAF: 0xffff88b9dde9e600
+         [d] LEAF: 0xffff88b5bf6dbc00
+         [e] LEAF: 0xffff88b86f0dea00
+         [f] LEAF: 0xffff88b50b10f200
+      [6] NODE: 0x55dab1099720
+         [0] LEAF: 0xffff88b92c1c3200
+         [1] LEAF: 0xffff88bd8d054500
+         [2] LEAF: 0xffff88ba969df600
+         [3] LEAF: 0xffff88b73efa2d00
+         [b] LEAF: 0xffff88b24702b300
+         [c] LEAF: 0xffff88b447f6fa00
+         [d] LEAF: 0xffff88b9389e5200
+         [e] LEAF: 0xffff889cdf175500
+         [f] LEAF: 0xffff88b4338a1d00
+      [7] NODE: 0x55dab10997c0
+         [0] LEAF: 0xffff88bcc511b900
+         [1] LEAF: 0xffff88b658b1f600
+         [2] LEAF: 0xffff88be12c57000
+         [3] LEAF: 0xffff88b8a08e2500
+      [8] NODE: 0x55dab1099860
+         [0] LEAF: 0xffff88bcc1e88900
+         [1] LEAF: 0xffff88b8a08e3700
+         [2] LEAF: 0xffff88b724c04d00
+         [f] LEAF: 0xffff88ba0a3f1100
+      [9] NODE: 0x55dab1099900
+         [0] LEAF: 0xffff88b5ed64b300
+         [1] LEAF: 0xffff88bc4ecb6f00
+         [f] LEAF: 0xffff88bcbd6afb00
+      [a] NODE: 0x55dab10999a0
+         [0] LEAF: 0xffff88b67c7f8200
+         [1] LEAF: 0xffff88bd838c9000
+         [f] LEAF: 0xffff88b65c173100
+      [b] NODE: 0x55dab1099a40
+         [0] LEAF: 0xffff88b9df224100
+         [1] LEAF: 0xffff88b31c580000
+         [2] LEAF: 0xffff88ba98c1a500
+         [3] LEAF: 0xffff88b447f6f700
+         [b] LEAF: 0xffff88b66cd13e00
+         [c] LEAF: 0xffff88b65c172c00
+         [d] LEAF: 0xffff88b741c52d00
+         [e] LEAF: 0xffff88b803a1c800
+         [f] LEAF: 0xffff88b5bd941700
+      [c] NODE: 0x55dab1099ae0
+         [0] LEAF: 0xffff88b68f006c00
+         [1] LEAF: 0xffff88b67223da00
+         [d] LEAF: 0xffff88b4f8e7c100
+         [e] LEAF: 0xffff88bd8c19a000
+         [f] LEAF: 0xffff88b4f2673000
+      [d] NODE: 0x55dab1099b80
+         [0] LEAF: 0xffff88bb9b35ab00
+         [1] LEAF: 0xffff88baa849ab00
+         [2] LEAF: 0xffff88bae43cc200
+         [e] LEAF: 0xffff88b5e7705d00
+         [f] LEAF: 0xffff88b67f542100
+      [e] LEAF: 0xffff88b938d48b00
+      [f] NODE: 0x55dab1099c20
+         [0] LEAF: 0xffff88bc595a0e00
+         [1] LEAF: 0xffff88b1157e7600
+   [2] NODE: 0x55dab1099cc0
+      [0] NODE: 0x55dab1099d60
+         [0] LEAF: 0xffff88b68f007300
+         [1] LEAF: 0xffff88b5ed64a600
+         [f] LEAF: 0xffff88bc2a8bdb00
+      [1] NODE: 0x55dab1099e00
+         [0] LEAF: 0xffff88ba1396e200
+         [1] LEAF: 0xffff88b68f045300
+         [d] LEAF: 0xffff88b9400a2800
+         [e] LEAF: 0xffff88b5ac34a600
+         [f] LEAF: 0xffff88b72b663b00
+      [2] NODE: 0x55dab1099ea0
+         [0] LEAF: 0xffff88bfaf1ff000
+         [1] LEAF: 0xffff88b803a1de00
+         [d] LEAF: 0xffff88b9699d6100
+         [e] LEAF: 0xffff88bb7ee4d500
+         [f] LEAF: 0xffff88bb877f3500
+      [3] NODE: 0x55dab1099f40
+         [0] LEAF: 0xffff88bb62aa1200
+         [1] LEAF: 0xffff88b7b81fbe00
+         [2] LEAF: 0xffff88b4430e0000
+         [e] LEAF: 0xffff88b870b2a500
+         [f] LEAF: 0xffff88b983049b00
+      [4] NODE: 0x55dab1099fe0
+         [0] LEAF: 0xffff88b329ced300
+         [1] LEAF: 0xffff88b5c9ef7600
+         [e] LEAF: 0xffff88be4595b200
+         [f] LEAF: 0xffff88b3ce0a0300
+      [5] NODE: 0x55dab109a080
+         [0] LEAF: 0xffff88b3b870a900
+         [1] LEAF: 0xffff88b89f7da900
+         [f] LEAF: 0xffff88b5bf6da300
+      [6] NODE: 0x55dab109a120
+         [0] LEAF: 0xffff88b72e996100
+         [1] LEAF: 0xffff88bee4b6ba00
+         [2] LEAF: 0xffff88b670208100
+         [f] LEAF: 0xffff88b445b9c600
+      [7] NODE: 0x55dab109a1c0
+         [0] LEAF: 0xffff88b5a35e5e00
+         [1] LEAF: 0xffff88b68f007900
+         [2] LEAF: 0xffff88b7ec82dc00
+         [e] LEAF: 0xffff88b33577ab00
+         [f] LEAF: 0xffff88b7d9eae100
+      [8] NODE: 0x55dab109a260
+         [0] LEAF: 0xffff88bd73d9dd00
+         [1] LEAF: 0xffff88b5bf4a3800
+         [f] LEAF: 0xffff88ba1c593c00
+      [9] NODE: 0x55dab109a300
+         [0] LEAF: 0xffff88bfc22b6600
+         [1] LEAF: 0xffff88bef19d0100
+         [e] LEAF: 0xffff88be12c57400
+         [f] LEAF: 0xffff88b5bf9d1600
+      [a] NODE: 0x55dab109a3a0
+         [0] LEAF: 0xffff88b5d2ca4000
+         [1] LEAF: 0xffff88b8713cd200
+         [d] LEAF: 0xffff88b1b27a6500
+         [e] LEAF: 0xffff88b7efd1c100
+         [f] LEAF: 0xffff88b72c5cbd00
+      [b] NODE: 0x55dab109a440
+         [0] LEAF: 0xffff88bd76d4d400
+         [1] LEAF: 0xffff88bae471fa00
+         [f] LEAF: 0xffff88b9fdc45f00
+      [c] NODE: 0x55dab109a4e0
+         [0] LEAF: 0xffff88b24a0cbf00
+         [1] LEAF: 0xffff88b32f52b300
+         [2] LEAF: 0xffff88bd73d9db00
+         [d] LEAF: 0xffff88ba1c592500
+         [e] LEAF: 0xffff88b68f045a00
+         [f] LEAF: 0xffff88bc2a4ee400
+      [d] NODE: 0x55dab109a580
+         [0] LEAF: 0xffff88b31c580300
+         [1] LEAF: 0xffff88bc3364f500
+         [2] LEAF: 0xffff88b4f3992700
+         [f] LEAF: 0xffff88b8a08e2100
+      [e] NODE: 0x55dab109a620
+         [0] LEAF: 0xffff88b714dd3d00
+         [1] LEAF: 0xffff88b46a311e00
+         [e] LEAF: 0xffff88bf0c856d00
+         [f] LEAF: 0xffff88ba1f4a5b00
+      [f] NODE: 0x55dab109a6c0
+         [0] LEAF: 0xffff88bc2e080b00
+         [1] LEAF: 0xffff88bac3098d00
+         [d] LEAF: 0xffff88b67f542200
+         [e] LEAF: 0xffff88bab1788f00
+         [f] LEAF: 0xffff88b95fda5e00
+   [3] NODE: 0x55dab109a760
+      [0] NODE: 0x55dab109a800
+         [0] LEAF: 0xffff88b9df225300
+         [1] LEAF: 0xffff88b24f421400
+         [2] LEAF: 0xffff88b50b0f7f00
+         [9] LEAF: 0xffff88b730122000
+         [a] LEAF: 0xffff88b65c173600
+         [b] LEAF: 0xffff88bcbd6aeb00
+         [c] LEAF: 0xffff88bb83cd6600
+         [d] LEAF: 0xffff88b23fa01500
+         [e] LEAF: 0xffff88bccb172600
+         [f] LEAF: 0xffff88bba053da00
+      [1] NODE: 0x55dab109a8a0
+         [0] LEAF: 0xffff88bfac756100
+         [1] LEAF: 0xffff88be2f880700
+         [b] LEAF: 0xffff88ba0ef58700
+         [c] LEAF: 0xffff88b870b2a400
+         [d] LEAF: 0xffff88b3ef08aa00
+         [e] LEAF: 0xffff88b6828c4f00
+         [f] LEAF: 0xffff88b47e6e2800
+      [2] NODE: 0x55dab109a940
+         [0] LEAF: 0xffff88b89f556600
+         [1] LEAF: 0xffff88b9400a3a00
+         [f] LEAF: 0xffff88bac67d4200
+      [3] NODE: 0x55dab109a9e0
+         [0] LEAF: 0xffff88b9df224500
+         [1] LEAF: 0xffff88bf996a1100
+         [2] LEAF: 0xffff88bb87233000
+         [c] LEAF: 0xffff88b8aacdcf00
+         [d] LEAF: 0xffff88b7e1b43d00
+         [e] LEAF: 0xffff88be498d5200
+         [f] LEAF: 0xffff88b1b8015400
+      [4] NODE: 0x55dab109aa80
+         [0] LEAF: 0xffff88bfc22b7400
+         [1] LEAF: 0xffff88bd76d4d500
+         [e] LEAF: 0xffff88b10ab7ac00
+         [f] LEAF: 0xffff88b24daacb00
+      [5] NODE: 0x55dab109ab20
+         [0] LEAF: 0xffff88b24702b100
+         [1] LEAF: 0xffff88ba98c1a100
+         [e] LEAF: 0xffff88b9fce0ca00
+         [f] LEAF: 0xffff88b1b8f44e00
+      [6] LEAF: 0xffff88b10a125200
+      [7] NODE: 0x55dab109abc0
+         [0] LEAF: 0xffff88be767d6000
+         [1] LEAF: 0xffff88b89f5caf00
+         [f] LEAF: 0xffff88baf060e200
+      [8] NODE: 0x55dab109ac60
+         [0] LEAF: 0xffff88bc3ff33400
+         [1] LEAF: 0xffff88bc1e4cff00
+         [2] LEAF: 0xffff88be5376ea00
+         [3] LEAF: 0xffff88b687c1a900
+      [9] NODE: 0x55dab109ad00
+         [0] LEAF: 0xffff88bab100fa00
+         [1] LEAF: 0xffff88b5cdc32900
+         [e] LEAF: 0xffff88ba1c699500
+         [f] LEAF: 0xffff88bc59547700
+      [a] NODE: 0x55dab109ada0
+         [0] LEAF: 0xffff88be33581c00
+         [1] LEAF: 0xffff88b3e20ca400
+      [b] NODE: 0x55dab109ae40
+         [0] LEAF: 0xffff88b68abdbf00
+         [1] LEAF: 0xffff88b9ea8f9c00
+      [c] NODE: 0x55dab109aee0
+         [0] LEAF: 0xffff88babf186b00
+         [1] LEAF: 0xffff88b4f2672b00
+         [2] LEAF: 0xffff88bd8d055800
+         [e] LEAF: 0xffff88bd8c19a900
+         [f] LEAF: 0xffff88bb681ca600
+      [d] NODE: 0x55dab109af80
+         [0] LEAF: 0xffff88b4f2673500
+         [1] LEAF: 0xffff88bb7547c700
+         [2] LEAF: 0xffff88bc3364f600
+         [d] LEAF: 0xffff88bd76d4c500
+         [e] LEAF: 0xffff88b9e5155600
+         [f] LEAF: 0xffff88bc3da2eb00
+      [e] NODE: 0x55dab109b020
+         [0] LEAF: 0xffff88bccb16c900
+         [1] LEAF: 0xffff88bd838c9100
+         [f] LEAF: 0xffff88bd88ee8b00
+      [f] NODE: 0x55dab109b0c0
+         [0] LEAF: 0xffff88b3b6bb3600
+         [1] LEAF: 0xffff88b504917a00
+         [f] LEAF: 0xffff88b450769c00
+   [4] NODE: 0x55dab109b160
+      [0] NODE: 0x55dab109b200
+         [0] LEAF: 0xffff88b803e4c100
+         [1] LEAF: 0xffff88b9ddd0b500
+         [2] LEAF: 0xffff88b7d9eaf700
+         [3] LEAF: 0xffff88ba97402600
+         [d] LEAF: 0xffff88b6770dd900
+         [e] LEAF: 0xffff88b4f2672e00
+         [f] LEAF: 0xffff88a1d33c3300
+      [1] LEAF: 0xffff88b67223c000
+      [2] NODE: 0x55dab109b2a0
+         [0] LEAF: 0xffff8897f3c78f00
+         [1] LEAF: 0xffff88b442aba000
+         [b] LEAF: 0xffff88bcbd53c200
+         [c] LEAF: 0xffff88bc4ecb7000
+         [d] LEAF: 0xffff88b3d6297400
+         [e] LEAF: 0xffff88b50b10ea00
+         [f] LEAF: 0xffff88bfc516ca00
+      [3] NODE: 0x55dab109b340
+         [0] LEAF: 0xffff88b0ecf48c00
+         [1] LEAF: 0xffff88bd7b1ba300
+         [f] LEAF: 0xffff88b5ef3e5700
+      [4] NODE: 0x55dab109b3e0
+         [0] LEAF: 0xffff88b1b8015700
+         [1] LEAF: 0xffff88b1a700d000
+         [e] LEAF: 0xffff88b3ef1bf800
+         [f] LEAF: 0xffff88b5dfe4df00
+      [5] NODE: 0x55dab109b480
+         [0] LEAF: 0xffff88bd7b3b5800
+         [1] LEAF: 0xffff88b3b8542d00
+         [e] LEAF: 0xffff88b3fbad9000
+         [f] LEAF: 0xffff88baa84d1400
+      [6] NODE: 0x55dab109b520
+         [0] LEAF: 0xffff88b4338a1000
+         [1] LEAF: 0xffff88b25dc23d00
+         [d] LEAF: 0xffff88b6522c8700
+         [e] LEAF: 0xffff88b93428a600
+         [f] LEAF: 0xffff88ba0a3f1f00
+      [7] NODE: 0x55dab109b5c0
+         [0] LEAF: 0xffff88b254f92400
+         [1] LEAF: 0xffff88b5efda8a00
+         [c] LEAF: 0xffff88b4d96a5100
+         [d] LEAF: 0xffff88b4f2672c00
+         [e] LEAF: 0xffff88bb628c9c00
+         [f] LEAF: 0xffff88bba053db00
+      [8] NODE: 0x55dab109b660
+         [0] LEAF: 0xffff88b5dfd22900
+         [1] LEAF: 0xffff88bfc22b7f00
+         [c] LEAF: 0xffff88b1b87de500
+         [d] LEAF: 0xffff88b0ea3d3b00
+         [e] LEAF: 0xffff88befb4a9100
+         [f] LEAF: 0xffff88a1d33c3f00
+      [9] NODE: 0x55dab109b700
+         [0] LEAF: 0xffff88bc2e29d400
+         [1] LEAF: 0xffff88bb62aa0000
+         [f] LEAF: 0xffff88b8aad51800
+      [a] NODE: 0x55dab109b7a0
+         [0] LEAF: 0xffff88b11cbd1600
+         [1] LEAF: 0xffff88be5334d500
+      [b] NODE: 0x55dab109b840
+         [0] LEAF: 0xffff88be498d5e00
+         [1] LEAF: 0xffff88bc2a834500
+         [e] LEAF: 0xffff88bee554e400
+         [f] LEAF: 0xffff88bd8c19b500
+      [c] NODE: 0x55dab109b8e0
+         [0] LEAF: 0xffff88babf186200
+         [1] LEAF: 0xffff88babf186500
+         [2] LEAF: 0xffff889cdf175f00
+         [f] LEAF: 0xffff88b6770dde00
+      [d] NODE: 0x55dab109b980
+         [0] LEAF: 0xffff88bc41626600
+         [1] LEAF: 0xffff88b31c581000
+         [2] LEAF: 0xffff88b0f1bf8300
+         [d] LEAF: 0xffff88b44c3a4200
+         [e] LEAF: 0xffff88bf03793400
+         [f] LEAF: 0xffff88bc5cd1f500
+      [e] NODE: 0x55dab109ba20
+         [0] LEAF: 0xffff88b926fd4000
+         [1] LEAF: 0xffff88bc27c38600
+         [f] LEAF: 0xffff88babbaa8800
+      [f] NODE: 0x55dab109bac0
+         [0] LEAF: 0xffff88bd8d224e00
+         [1] LEAF: 0xffff88b89f5cb000
+         [f] LEAF: 0xffff889b78480300
+   [5] NODE: 0x55dab109bb60
+      [0] NODE: 0x55dab109bc00
+         [0] LEAF: 0xffff88b9f7cd1c00
+         [1] LEAF: 0xffff88b45b7c0200
+         [c] LEAF: 0xffff88bcc511bf00
+         [d] LEAF: 0xffff88bd838c9a00
+         [e] LEAF: 0xffff88ba08d50c00
+         [f] LEAF: 0xffff88b51f4d9900
+      [1] NODE: 0x55dab109bca0
+         [0] LEAF: 0xffff88b6a3a0aa00
+         [1] LEAF: 0xffff88bc27caaa00
+         [e] LEAF: 0xffff88bc463ced00
+         [f] LEAF: 0xffff88befb794100
+      [2] NODE: 0x55dab109bd40
+         [0] LEAF: 0xffff88b72d2e9800
+         [1] LEAF: 0xffff88bccb16c300
+      [3] NODE: 0x55dab109bde0
+         [0] LEAF: 0xffff88bed44c0900
+         [1] LEAF: 0xffff88b24702b000
+         [d] LEAF: 0xffff88b4715d2400
+         [e] LEAF: 0xffff88bf09a51c00
+         [f] LEAF: 0xffff88b5ed64a000
+      [4] NODE: 0x55dab109be80
+         [0] LEAF: 0xffff88bf0ac84f00
+         [1] LEAF: 0xffff88bd73d9d700
+      [5] NODE: 0x55dab109bf20
+         [0] LEAF: 0xffff88ba969df200
+         [1] LEAF: 0xffff88bc2e29c400
+         [d] LEAF: 0xffff88bed1844a00
+         [e] LEAF: 0xffff88b1b27a6e00
+         [f] LEAF: 0xffff88b5bf6daf00
+      [6] NODE: 0x55dab109bfc0
+         [0] LEAF: 0xffff88b9f7cd1800
+         [1] LEAF: 0xffff88bc31173700
+         [e] LEAF: 0xffff88b5e7705300
+         [f] LEAF: 0xffff88b4efb7f400
+      [7] NODE: 0x55dab109c060
+         [0] LEAF: 0xffff88bdb244ed00
+         [1] LEAF: 0xffff88babf1b9900
+         [2] LEAF: 0xffff88bfc530f400
+         [3] LEAF: 0xffff88b7c901ab00
+         [b] LEAF: 0xffff88b5e9519500
+         [c] LEAF: 0xffff88bc31173800
+         [d] LEAF: 0xffff88bd838c8600
+         [e] LEAF: 0xffff88b7e1b42000
+         [f] LEAF: 0xffff88b7b6eeb900
+      [8] NODE: 0x55dab109c100
+         [0] LEAF: 0xffff88bc1fa96900
+         [1] LEAF: 0xffff88b9ddd0b800
+         [e] LEAF: 0xffff88b4f2672500
+         [f] LEAF: 0xffff88b50b10f900
+      [9] NODE: 0x55dab109c1a0
+         [0] LEAF: 0xffff88b5b44fd300
+         [1] LEAF: 0xffff88bfc22b6b00
+         [c] LEAF: 0xffff88b11cae4c00
+         [d] LEAF: 0xffff88b7b6eeb100
+         [e] LEAF: 0xffff88bac3343e00
+         [f] LEAF: 0xffff88b8a08e2400
+      [a] NODE: 0x55dab109c240
+         [0] LEAF: 0xffff88b31c581700
+         [1] LEAF: 0xffff88bb8a587f00
+         [b] LEAF: 0xffff88b104ad9200
+         [c] LEAF: 0xffff88bb9e1e4b00
+         [d] LEAF: 0xffff88b9400a2d00
+         [e] LEAF: 0xffff88bb7ee4d600
+         [f] LEAF: 0xffff88b10a125800
+      [b] NODE: 0x55dab109c2e0
+         [0] LEAF: 0xffff88bdb6b46b00
+         [1] LEAF: 0xffff88b670209600
+         [c] LEAF: 0xffff88bd838c9b00
+         [d] LEAF: 0xffff88b94cf33600
+         [e] LEAF: 0xffff88b4daf47500
+         [f] LEAF: 0xffff88b8713cdf00
+      [c] LEAF: 0xffff88ba1f4a4a00
+      [d] NODE: 0x55dab109c380
+         [0] LEAF: 0xffff88b9df224a00
+         [1] LEAF: 0xffff88b442abb600
+         [e] LEAF: 0xffff88b89cd85500
+         [f] LEAF: 0xffff88b1b27a6a00
+      [e] NODE: 0x55dab109c420
+         [0] LEAF: 0xffff88bfc2395400
+         [1] LEAF: 0xffff88bfc501f500
+         [e] LEAF: 0xffff88b104ad9300
+         [f] LEAF: 0xffff88b511df8800
+      [f] NODE: 0x55dab109c4c0
+         [0] LEAF: 0xffff88bee4a5bc00
+         [1] LEAF: 0xffff88bfaf1fe100
+         [d] LEAF: 0xffff88b4efb7e000
+         [e] LEAF: 0xffff88bce195a800
+         [f] LEAF: 0xffff88b50b10f800
+   [6] NODE: 0x55dab109c560
+      [0] NODE: 0x55dab109c600
+         [0] LEAF: 0xffff88b32f52b500
+         [1] LEAF: 0xffff88bac177d000
+         [c] LEAF: 0xffff88b67e55d300
+         [d] LEAF: 0xffff88b5bf9d1500
+         [e] LEAF: 0xffff88b3f5c5f700
+         [f] LEAF: 0xffff88bc2e3a8900
+      [1] NODE: 0x55dab109c6a0
+         [0] LEAF: 0xffff88bc2a53ec00
+         [1] LEAF: 0xffff88bae471e800
+         [d] LEAF: 0xffff88b7c901d100
+         [e] LEAF: 0xffff88b44c3a4d00
+         [f] LEAF: 0xffff88b4daf46300
+      [2] NODE: 0x55dab109c740
+         [0] LEAF: 0xffff88b24a0cba00
+         [1] LEAF: 0xffff88b7ec82c800
+         [2] LEAF: 0xffff88b73732ea00
+         [f] LEAF: 0xffff88b65c172e00
+      [3] NODE: 0x55dab109c7e0
+         [0] LEAF: 0xffff88b5cdc32400
+         [1] LEAF: 0xffff88b2fc1d7500
+         [e] LEAF: 0xffff88b3c740ff00
+         [f] LEAF: 0xffff88bae43cd500
+      [4] NODE: 0x55dab109c880
+         [0] LEAF: 0xffff88b43fd75400
+         [1] LEAF: 0xffff88be36934100
+         [f] LEAF: 0xffff88b45200a200
+      [5] NODE: 0x55dab109c920
+         [0] LEAF: 0xffff88b89f5dd700
+         [1] LEAF: 0xffff88b7d206de00
+         [2] LEAF: 0xffff88b68f006b00
+         [3] LEAF: 0xffff88bc1e741b00
+         [c] LEAF: 0xffff88b4f8e7c000
+         [d] LEAF: 0xffff88b7c901d400
+         [e] LEAF: 0xffff88bfbb095400
+         [f] LEAF: 0xffff88bda4fc2e00
+      [6] NODE: 0x55dab109c9c0
+         [0] LEAF: 0xffff88be33580600
+         [1] LEAF: 0xffff88b9ddd0bc00
+         [c] LEAF: 0xffff88b45200a500
+         [d] LEAF: 0xffff88b92c1c3600
+         [e] LEAF: 0xffff88b4fb2be200
+         [f] LEAF: 0xffff88bb91901700
+      [7] NODE: 0x55dab109ca60
+         [0] LEAF: 0xffff88bc24cb2200
+         [1] LEAF: 0xffff88bcd5c7f700
+         [d] LEAF: 0xffff88b884830100
+         [e] LEAF: 0xffff88b4566f1500
+         [f] LEAF: 0xffff88be5376e000
+      [8] NODE: 0x55dab109cb00
+         [0] LEAF: 0xffff88b93b69ac00
+         [1] LEAF: 0xffff88b2fc75f200
+      [9] NODE: 0x55dab109cba0
+         [0] LEAF: 0xffff88b2520d5100
+         [1] LEAF: 0xffff88bd9ad56000
+      [a] NODE: 0x55dab109cc40
+         [0] LEAF: 0xffff88bc2ba3a600
+         [1] LEAF: 0xffff88bfaf1fe500
+         [e] LEAF: 0xffff88bd8c01db00
+         [f] LEAF: 0xffff88bd838c9200
+      [b] NODE: 0x55dab109cce0
+         [0] LEAF: 0xffff88bae471f200
+         [1] LEAF: 0xffff88bd62872d00
+         [d] LEAF: 0xffff88acd67ca500
+         [e] LEAF: 0xffff88baa849a300
+         [f] LEAF: 0xffff88b3d9cd9100
+      [c] NODE: 0x55dab109cd80
+         [0] LEAF: 0xffff88b3c6821300
+         [1] LEAF: 0xffff88b4f2672600
+         [f] LEAF: 0xffff88b51061d600
+      [d] NODE: 0x55dab109ce20
+         [0] LEAF: 0xffff88b7d9eafb00
+         [1] LEAF: 0xffff88d456683c00
+      [e] NODE: 0x55dab109cec0
+         [0] LEAF: 0xffff88bac3098100
+         [1] LEAF: 0xffff88b254f92500
+         [d] LEAF: 0xffff88b3b8724800
+         [e] LEAF: 0xffff88b34109e600
+         [f] LEAF: 0xffff88bc414a8f00
+      [f] NODE: 0x55dab109cf60
+         [0] LEAF: 0xffff88b64e269b00
+         [1] LEAF: 0xffff88bc2e29d900
+         [d] LEAF: 0xffff88b72b662300
+         [e] LEAF: 0xffff88be26425300
+         [f] LEAF: 0xffff88b5bf6dbe00
+   [7] NODE: 0x55dab109d000
+      [0] NODE: 0x55dab109d0a0
+         [0] LEAF: 0xffff887fdafa9e00
+         [1] LEAF: 0xffff88bc2a53f300
+         [2] LEAF: 0xffff88bfac756400
+         [c] LEAF: 0xffff88b51061cf00
+         [d] LEAF: 0xffff88b7d9eae200
+         [e] LEAF: 0xffff88b3ee336d00
+         [f] LEAF: 0xffff88ba0a071000
+      [1] NODE: 0x55dab109d140
+         [0] LEAF: 0xffff88b50ee68d00
+         [1] LEAF: 0xffff88b2520d5200
+         [f] LEAF: 0xffff88b45072cb00
+      [2] NODE: 0x55dab109d1e0
+         [0] LEAF: 0xffff88bd8dfc3900
+         [1] LEAF: 0xffff88bb7f022c00
+      [3] NODE: 0x55dab109d280
+         [0] LEAF: 0xffff88bac174b200
+         [1] LEAF: 0xffff88b940714000
+         [d] LEAF: 0xffff88b5a3273a00
+         [e] LEAF: 0xffff88b1a6cf7000
+         [f] LEAF: 0xffff88b6a3a0a700
+      [4] NODE: 0x55dab109d320
+         [0] LEAF: 0xffff88b8a7444000
+         [1] LEAF: 0xffff88bd838c8700
+         [f] LEAF: 0xffff88bfc2451a00
+      [5] NODE: 0x55dab109d3c0
+         [0] LEAF: 0xffff88b1c0b15f00
+         [1] LEAF: 0xffff88bfc22b6a00
+         [b] LEAF: 0xffff88bac71cd700
+         [c] LEAF: 0xffff88bac3099a00
+         [d] LEAF: 0xffff88bc3da2ff00
+         [e] LEAF: 0xffff88bc5cd1e600
+         [f] LEAF: 0xffff88b0ecf49100
+      [6] NODE: 0x55dab109d460
+         [0] LEAF: 0xffff88b4f923fe00
+         [1] LEAF: 0xffff88b442aba100
+         [d] LEAF: 0xffff88b3ef08bc00
+         [e] LEAF: 0xffff88babd624500
+         [f] LEAF: 0xffff88bc2a4ee300
+      [7] NODE: 0x55dab109d500
+         [0] LEAF: 0xffff88b43fd75900
+         [1] LEAF: 0xffff88b64e269900
+         [f] LEAF: 0xffff88bc59547600
+      [8] NODE: 0x55dab109d5a0
+         [0] LEAF: 0xffff8897f3c79600
+         [1] LEAF: 0xffff88b50b10fd00
+         [e] LEAF: 0xffff88be5334c600
+         [f] LEAF: 0xffff88b3af415000
+      [9] NODE: 0x55dab109d640
+         [0] LEAF: 0xffff88bc2e29db00
+         [1] LEAF: 0xffff88b926d30400
+         [f] LEAF: 0xffff88befb6ef500
+      [a] NODE: 0x55dab109d6e0
+         [0] LEAF: 0xffff88b43fd74800
+         [1] LEAF: 0xffff88b245e4f700
+         [c] LEAF: 0xffff88bac0a84100
+         [d] LEAF: 0xffff88b10a124c00
+         [e] LEAF: 0xffff88be12c56b00
+         [f] LEAF: 0xffff88b1b3f8fe00
+      [b] NODE: 0x55dab109d780
+         [0] LEAF: 0xffff88b3ee336e00
+         [1] LEAF: 0xffff88bc33765e00
+         [e] LEAF: 0xffff88bac3017700
+         [f] LEAF: 0xffff88b741c52500
+      [c] NODE: 0x55dab109d820
+         [0] LEAF: 0xffff88bcdb35fe00
+         [1] LEAF: 0xffff88bc3364e300
+         [e] LEAF: 0xffff88bef9e6fe00
+         [f] LEAF: 0xffff88b50b10f100
+      [d] NODE: 0x55dab109d8c0
+         [0] LEAF: 0xffff88be46a31e00
+         [1] LEAF: 0xffff88b5abee3d00
+         [e] LEAF: 0xffff88be26424400
+         [f] LEAF: 0xffff88b95fda5900
+      [e] LEAF: 0xffff88b5c83a3f00
+      [f] NODE: 0x55dab109d960
+         [0] LEAF: 0xffff88bf1c127700
+         [1] LEAF: 0xffff88be3694d000
+         [2] LEAF: 0xffff88b1aaf0b300
+         [c] LEAF: 0xffff88bee554e000
+         [d] LEAF: 0xffff88bfaf1fe200
+         [e] LEAF: 0xffff88be36934b00
+         [f] LEAF: 0xffff88bd9aeecc00
+   [8] NODE: 0x55dab109da00
+      [0] NODE: 0x55dab109daa0
+         [0] LEAF: 0xffff88b100e37600
+         [1] LEAF: 0xffff88be76785200
+         [e] LEAF: 0xffff88b44c38a500
+         [f] LEAF: 0xffff88bc4ecb6300
+      [1] NODE: 0x55dab109db40
+         [0] LEAF: 0xffff88b3da7f7d00
+         [1] LEAF: 0xffff88bfc516c400
+         [2] LEAF: 0xffff88bb72198400
+         [f] LEAF: 0xffff88bee554f100
+      [2] NODE: 0x55dab109dbe0
+         [0] LEAF: 0xffff88bdbf9ea900
+         [1] LEAF: 0xffff88bc2f461200
+      [3] NODE: 0x55dab109dc80
+         [0] LEAF: 0xffff88bc2e29ce00
+         [1] LEAF: 0xffff88bee3dd6600
+         [e] LEAF: 0xffff88bed1845300
+         [f] LEAF: 0xffff88b86f0de700
+      [4] NODE: 0x55dab109dd20
+         [0] LEAF: 0xffff88bc27da8600
+         [1] LEAF: 0xffff88b32a2bfa00
+         [f] LEAF: 0xffff88b9ea8f9100
+      [5] NODE: 0x55dab109ddc0
+         [0] LEAF: 0xffff88b3c0523600
+         [1] LEAF: 0xffff88b89f5dc200
+         [2] LEAF: 0xffff88b1a6c3b400
+         [3] LEAF: 0xffff88b8a7445600
+         [c] LEAF: 0xffff88baa84d1d00
+         [d] LEAF: 0xffff88ba0a3f1200
+         [e] LEAF: 0xffff88b7ec82c600
+         [f] LEAF: 0xffff88b7d9f3c000
+      [6] LEAF: 0xffff88baadbbe500
+      [7] NODE: 0x55dab109de60
+         [0] LEAF: 0xffff88b10a124e00
+         [1] LEAF: 0xffff88b94cf33c00
+         [f] LEAF: 0xffff88b3d50d6100
+      [8] NODE: 0x55dab109df00
+         [0] LEAF: 0xffff889cdf174100
+         [1] LEAF: 0xffff88b7d0c10e00
+         [2] LEAF: 0xffff88b250cb3100
+         [3] LEAF: 0xffff88ba072b2c00
+         [f] LEAF: 0xffff88b5ef3e4100
+      [9] NODE: 0x55dab109dfa0
+         [0] LEAF: 0xffff88bd7b1bbc00
+         [1] LEAF: 0xffff88b7e1b43800
+         [e] LEAF: 0xffff88b86effd400
+         [f] LEAF: 0xffff88befb794900
+      [a] NODE: 0x55dab109e040
+         [0] LEAF: 0xffff887b0cd30400
+         [1] LEAF: 0xffff88bdaf079800
+         [a] LEAF: 0xffff88b5d2c79200
+         [b] LEAF: 0xffff88b4fb4ce600
+         [c] LEAF: 0xffff88bc27cabc00
+         [d] LEAF: 0xffff88b89f7da400
+         [e] LEAF: 0xffff88b250cb3500
+         [f] LEAF: 0xffff88bfaf1ff700
+      [b] NODE: 0x55dab109e0e0
+         [0] LEAF: 0xffff88babf1b8b00
+         [1] LEAF: 0xffff88b7d0c10f00
+         [e] LEAF: 0xffff88bcbd6aed00
+         [f] LEAF: 0xffff88b4566f1100
+      [c] NODE: 0x55dab109e180
+         [0] LEAF: 0xffff88bd9acb3a00
+         [1] LEAF: 0xffff88bfd0599600
+         [2] LEAF: 0xffff88b331709f00
+         [d] LEAF: 0xffff88bcbd53c100
+         [e] LEAF: 0xffff88bb91b58e00
+         [f] LEAF: 0xffff88b18fd9b700
+      [d] NODE: 0x55dab109e220
+         [0] LEAF: 0xffff88b1aaf0b000
+         [1] LEAF: 0xffff88bc33764300
+         [e] LEAF: 0xffff88be36934600
+         [f] LEAF: 0xffff88b7e1aa0600
+      [e] NODE: 0x55dab109e2c0
+         [0] LEAF: 0xffff88b7353a0c00
+         [1] LEAF: 0xffff88b4fb037a00
+         [2] LEAF: 0xffff88b4e5981c00
+         [f] LEAF: 0xffff88bac177d800
+      [f] LEAF: 0xffff88b51061d300
+   [9] NODE: 0x55dab109e360
+      [0] NODE: 0x55dab109e400
+         [0] LEAF: 0xffff88b1c0c7fe00
+         [1] LEAF: 0xffff88b0e4588a00
+         [c] LEAF: 0xffff88bd5ed59c00
+         [d] LEAF: 0xffff88befb716100
+         [e] LEAF: 0xffff88bbacc8fe00
+         [f] LEAF: 0xffff88b46a311600
+      [1] NODE: 0x55dab109e4a0
+         [0] LEAF: 0xffff88b1c0db3f00
+         [1] LEAF: 0xffff88b72d2e9700
+         [c] LEAF: 0xffff88baf060ff00
+         [d] LEAF: 0xffff88bb877f2700
+         [e] LEAF: 0xffff88b68aac5200
+         [f] LEAF: 0xffff88bb7f023d00
+      [2] NODE: 0x55dab109e540
+         [0] LEAF: 0xffff88bee4a5b600
+         [1] LEAF: 0xffff88ba0a3f1500
+      [3] NODE: 0x55dab109e5e0
+         [0] LEAF: 0xffff88baba5f9900
+         [1] LEAF: 0xffff88b670209100
+         [e] LEAF: 0xffff88bed1d2d400
+         [f] LEAF: 0xffff88b9ddd0bb00
+      [4] NODE: 0x55dab109e680
+         [0] LEAF: 0xffff88b9f7cd1900
+         [1] LEAF: 0xffff88b973806700
+         [f] LEAF: 0xffff88b687c41800
+      [5] NODE: 0x55dab109e720
+         [0] LEAF: 0xffff88bd7b1bb300
+         [1] LEAF: 0xffff88bc24cc0f00
+         [a] LEAF: 0xffff88bed1844c00
+         [b] LEAF: 0xffff88b0e7992e00
+         [c] LEAF: 0xffff88b4eaf4ae00
+         [d] LEAF: 0xffff88bc4ecb7300
+         [e] LEAF: 0xffff88b730645c00
+         [f] LEAF: 0xffff88b5bf9d0f00
+      [6] NODE: 0x55dab109e7c0
+         [0] LEAF: 0xffff88bc1e4ce900
+         [1] LEAF: 0xffff88bc1e741d00
+         [c] LEAF: 0xffff88bd7b3b5300
+         [d] LEAF: 0xffff88b329cc8e00
+         [e] LEAF: 0xffff88ba1f4a4700
+         [f] LEAF: 0xffff88b3d9cd8f00
+      [7] NODE: 0x55dab109e860
+         [0] LEAF: 0xffff889cdf175200
+         [1] LEAF: 0xffff88be2e815100
+         [e] LEAF: 0xffff88b1bac65300
+         [f] LEAF: 0xffff88b447f6e100
+      [8] NODE: 0x55dab109e900
+         [0] LEAF: 0xffff88bed1b30b00
+         [1] LEAF: 0xffff88bc59547900
+         [e] LEAF: 0xffff88b447fae900
+         [f] LEAF: 0xffff88b3b6bb3b00
+      [9] NODE: 0x55dab109e9a0
+         [0] LEAF: 0xffff88b940714800
+         [1] LEAF: 0xffff88bf1c127d00
+         [9] LEAF: 0xffff88b8aacddd00
+         [a] LEAF: 0xffff88b45ee21f00
+         [b] LEAF: 0xffff88b7d0c11000
+         [c] LEAF: 0xffff88b33ad52200
+         [d] LEAF: 0xffff88b3d9cd9c00
+         [e] LEAF: 0xffff88bc33765100
+         [f] LEAF: 0xffff88b0ecf48400
+      [a] NODE: 0x55dab109ea40
+         [0] LEAF: 0xffff88bfc22b7500
+         [1] LEAF: 0xffff88b68f007f00
+         [b] LEAF: 0xffff88b8aacdd300
+         [c] LEAF: 0xffff88b4fb2be400
+         [d] LEAF: 0xffff88beec959000
+         [e] LEAF: 0xffff88ba1f4a5000
+         [f] LEAF: 0xffff88b433808c00
+      [b] NODE: 0x55dab109eae0
+         [0] LEAF: 0xffff88b4430e1d00
+         [1] LEAF: 0xffff88bd839c8100
+      [c] NODE: 0x55dab109eb80
+         [0] LEAF: 0xffff88b670209a00
+         [1] LEAF: 0xffff88b0ecf49800
+         [f] LEAF: 0xffff88b2fbeea200
+      [d] NODE: 0x55dab109ec20
+         [0] LEAF: 0xffff8881f8f4fe00
+         [1] LEAF: 0xffff88b45b90e300
+         [f] LEAF: 0xffff88b104ad9000
+      [e] NODE: 0x55dab109ecc0
+         [0] LEAF: 0xffff88b7b33f6200
+         [1] LEAF: 0xffff88bcbd7e9200
+         [b] LEAF: 0xffff88b92c1c3900
+         [c] LEAF: 0xffff88b72b663200
+         [d] LEAF: 0xffff88bac3099d00
+         [e] LEAF: 0xffff88b687c41400
+         [f] LEAF: 0xffff88bdaf079500
+      [f] NODE: 0x55dab109ed60
+         [0] LEAF: 0xffff8881f8f4e200
+         [1] LEAF: 0xffff88b92c1c3b00
+         [2] LEAF: 0xffff88b1c0b14c00
+         [c] LEAF: 0xffff88be5db0fc00
+         [d] LEAF: 0xffff88b72b662e00
+         [e] LEAF: 0xffff88b5bdb10600
+         [f] LEAF: 0xffff88bc59546400
+   [a] NODE: 0x55dab109ee00
+      [0] NODE: 0x55dab109eea0
+         [0] LEAF: 0xffff88bc1e4ce800
+         [1] LEAF: 0xffff88bc2a4eee00
+         [b] LEAF: 0xffff88b67f542f00
+         [c] LEAF: 0xffff88b252d70f00
+         [d] LEAF: 0xffff88b18fd9a700
+         [e] LEAF: 0xffff88b75ac70b00
+         [f] LEAF: 0xffff88b9389e5400
+      [1] NODE: 0x55dab109ef40
+         [0] LEAF: 0xffff88b66cc72d00
+         [1] LEAF: 0xffff88b4f2673200
+         [f] LEAF: 0xffff88b658b68b00
+      [2] NODE: 0x55dab109efe0
+         [0] LEAF: 0xffff88bcee60df00
+         [1] LEAF: 0xffff88b104ad8f00
+      [3] NODE: 0x55dab109f080
+         [0] LEAF: 0xffff88ba97402c00
+         [1] LEAF: 0xffff88b6770dce00
+         [f] LEAF: 0xffff88ba0a3f0b00
+      [4] NODE: 0x55dab109f120
+         [0] LEAF: 0xffff88bd76d4cf00
+         [1] LEAF: 0xffff88bba053d400
+         [e] LEAF: 0xffff88b3c6813c00
+         [f] LEAF: 0xffff88bb91b59000
+      [5] NODE: 0x55dab109f1c0
+         [0] LEAF: 0xffff88bfaf045000
+         [1] LEAF: 0xffff88bb4de6d900
+      [6] NODE: 0x55dab109f260
+         [0] LEAF: 0xffff88b926fd5800
+         [1] LEAF: 0xffff88be76784400
+         [e] LEAF: 0xffff88be2c2cc500
+         [f] LEAF: 0xffff88b50b10ff00
+      [7] NODE: 0x55dab109f300
+         [0] LEAF: 0xffff88b92c1c2000
+         [1] LEAF: 0xffff88be2f80b400
+         [e] LEAF: 0xffff88bacdf68600
+         [f] LEAF: 0xffff88b4f2672200
+      [8] NODE: 0x55dab109f3a0
+         [0] LEAF: 0xffff88b9f7cd1400
+         [1] LEAF: 0xffff88b2520d4f00
+         [2] LEAF: 0xffff88b5adc4fb00
+      [9] NODE: 0x55dab109f440
+         [0] LEAF: 0xffff88bd9acb3600
+         [1] LEAF: 0xffff88b7b6eea900
+      [a] NODE: 0x55dab109f4e0
+         [0] LEAF: 0xffff88bc59546a00
+         [1] LEAF: 0xffff88bee554e300
+      [b] NODE: 0x55dab109f580
+         [0] LEAF: 0xffff88b24f420800
+         [1] LEAF: 0xffff88b4f3affb00
+         [d] LEAF: 0xffff88b93428bb00
+         [e] LEAF: 0xffff88be7211f100
+         [f] LEAF: 0xffff88b10a125f00
+      [c] NODE: 0x55dab109f620
+         [0] LEAF: 0xffff88bc2aaf8a00
+         [1] LEAF: 0xffff88be3694d100
+         [2] LEAF: 0xffff88b72d2e9300
+         [3] LEAF: 0xffff88b92c1c2100
+         [d] LEAF: 0xffff88bacf4d3c00
+         [e] LEAF: 0xffff88b104ba6b00
+         [f] LEAF: 0xffff88b72a9ce200
+      [d] NODE: 0x55dab109f6c0
+         [0] LEAF: 0xffff88bf08286600
+         [1] LEAF: 0xffff88b671a86900
+         [2] LEAF: 0xffff88b73732f700
+      [e] NODE: 0x55dab109f760
+         [0] LEAF: 0xffff88bc33765d00
+         [1] LEAF: 0xffff88bdb2454600
+         [f] LEAF: 0xffff887a63c1f200
+      [f] NODE: 0x55dab109f800
+         [0] LEAF: 0xffff88bd62872900
+         [1] LEAF: 0xffff88b7d0c11a00
+         [2] LEAF: 0xffff88b1b8014b00
+         [3] LEAF: 0xffff88b4671f0200
+   [b] NODE: 0x55dab109f8a0
+      [0] NODE: 0x55dab109f940
+         [0] LEAF: 0xffff88b973807b00
+         [1] LEAF: 0xffff88b75ac71600
+         [f] LEAF: 0xffff88b93428a800
+      [1] NODE: 0x55dab109f9e0
+         [0] LEAF: 0xffff88b433809500
+         [1] LEAF: 0xffff88bd8c19be00
+      [2] NODE: 0x55dab109fa80
+         [0] LEAF: 0xffff88b89f5ddf00
+         [1] LEAF: 0xffff88b4338a0100
+         [d] LEAF: 0xffff88c03c04c800
+         [e] LEAF: 0xffff88bc27cab800
+         [f] LEAF: 0xffff88b1b874ae00
+      [3] NODE: 0x55dab109fb20
+         [0] LEAF: 0xffff8897f3c78300
+         [1] LEAF: 0xffff88bdb2454500
+         [2] LEAF: 0xffff88b72e971200
+         [e] LEAF: 0xffff88b50b1f7e00
+         [f] LEAF: 0xffff88ba96902200
+      [4] NODE: 0x55dab109fbc0
+         [0] LEAF: 0xffff88ba97402800
+         [1] LEAF: 0xffff88b245db7f00
+      [5] NODE: 0x55dab109fc60
+         [0] LEAF: 0xffff8881f8f4e100
+         [1] LEAF: 0xffff88bc27c38700
+         [2] LEAF: 0xffff88b32f52b200
+         [3] LEAF: 0xffff88b7b33f7000
+         [4] LEAF: 0xffff88b4e5981500
+         [b] LEAF: 0xffff88befb794000
+         [c] LEAF: 0xffff88c03c04da00
+         [d] LEAF: 0xffff88b6770dd200
+         [e] LEAF: 0xffff88b4daf46100
+         [f] LEAF: 0xffff88ba08d51000
+      [6] NODE: 0x55dab109fd00
+         [0] LEAF: 0xffff88bcc34e3f00
+         [1] LEAF: 0xffff88b891dec700
+      [7] NODE: 0x55dab109fda0
+         [0] LEAF: 0xffff88b5d2f76100
+         [1] LEAF: 0xffff88b100fbb600
+         [2] LEAF: 0xffff88b3f5c5e900
+         [f] LEAF: 0xffff88bb7ee4df00
+      [8] NODE: 0x55dab109fe40
+         [0] LEAF: 0xffff88bac3098500
+         [1] LEAF: 0xffff88b695f4eb00
+         [c] LEAF: 0xffff88b4691ea400
+         [d] LEAF: 0xffff88b9389e5a00
+         [e] LEAF: 0xffff88b33ad52100
+         [f] LEAF: 0xffff88bfaf1ffc00
+      [9] NODE: 0x55dab109fee0
+         [0] LEAF: 0xffff88b89cfe6b00
+         [1] LEAF: 0xffff88b979898600
+         [f] LEAF: 0xffff88b450768b00
+      [a] NODE: 0x55dab109ff80
+         [0] LEAF: 0xffff88babf1b9c00
+         [1] LEAF: 0xffff88b254f93a00
+         [2] LEAF: 0xffff88b68f007200
+         [d] LEAF: 0xffff88be2c2cc000
+         [e] LEAF: 0xffff88b3c3623900
+         [f] LEAF: 0xffff88b1aaf0bc00
+      [b] NODE: 0x55dab10a0020
+         [0] LEAF: 0xffff88bd838c8900
+         [1] LEAF: 0xffff88bcd3222200
+      [c] NODE: 0x55dab10a00c0
+         [0] LEAF: 0xffff887b0cd30c00
+         [1] LEAF: 0xffff88ba0a481700
+         [c] LEAF: 0xffff88bfc532d400
+         [d] LEAF: 0xffff88ba0a3f0100
+         [e] LEAF: 0xffff88b735320b00
+         [f] LEAF: 0xffff88b735321000
+      [d] NODE: 0x55dab10a0160
+         [0] LEAF: 0xffff88b5dfd22c00
+         [1] LEAF: 0xffff88b3ef1bd200
+         [d] LEAF: 0xffff88bb7f001a00
+         [e] LEAF: 0xffff88bae33de400
+         [f] LEAF: 0xffff88b9fce0d700
+      [e] NODE: 0x55dab10a0200
+         [0] LEAF: 0xffff88b4691ebe00
+         [1] LEAF: 0xffff88bc2e3a9500
+      [f] NODE: 0x55dab10a02a0
+         [0] LEAF: 0xffff88babf1b8a00
+         [1] LEAF: 0xffff88b45b7c1f00
+         [c] LEAF: 0xffff88b93428ab00
+         [d] LEAF: 0xffff88b44c38bd00
+         [e] LEAF: 0xffff88bc3da2e000
+         [f] LEAF: 0xffff88b33ac72500
+   [c] NODE: 0x55dab10a0340
+      [0] NODE: 0x55dab10a03e0
+         [0] LEAF: 0xffff88b8a08e2f00
+         [1] LEAF: 0xffff88b44c3a4900
+         [f] LEAF: 0xffff88b50b193800
+      [1] NODE: 0x55dab10a0480
+         [0] LEAF: 0xffff887b0cd30000
+         [1] LEAF: 0xffff88b4429af100
+         [2] LEAF: 0xffff88bac3099800
+         [b] LEAF: 0xffff88b447fae800
+         [c] LEAF: 0xffff88b9e5154800
+         [d] LEAF: 0xffff88b72c5cbc00
+         [e] LEAF: 0xffff88b6a3a0bb00
+         [f] LEAF: 0xffff88b33577be00
+      [2] NODE: 0x55dab10a0520
+         [0] LEAF: 0xffff887b0cd31c00
+         [1] LEAF: 0xffff88b92c1c2600
+         [f] LEAF: 0xffff88b447faff00
+      [3] NODE: 0x55dab10a05c0
+         [0] LEAF: 0xffff88bd73d9c300
+         [1] LEAF: 0xffff88b3da7f6700
+         [c] LEAF: 0xffff88bd74515c00
+         [d] LEAF: 0xffff88b44c3a4100
+         [e] LEAF: 0xffff88b737d6c300
+         [f] LEAF: 0xffff88bfc516cc00
+      [4] NODE: 0x55dab10a0660
+         [0] LEAF: 0xffff88b3da7f6a00
+         [1] LEAF: 0xffff88be76785a00
+         [c] LEAF: 0xffff88befc5c0b00
+         [d] LEAF: 0xffff88bf081b0300
+         [e] LEAF: 0xffff88bb681cba00
+         [f] LEAF: 0xffff88b1b8015600
+      [5] NODE: 0x55dab10a0700
+         [0] LEAF: 0xffff88bae471f000
+         [1] LEAF: 0xffff88b5d68ae300
+         [c] LEAF: 0xffff88be5334d600
+         [d] LEAF: 0xffff88b2768dbd00
+         [e] LEAF: 0xffff88b65c172d00
+         [f] LEAF: 0xffff88b1b27a7100
+      [6] NODE: 0x55dab10a07a0
+         [0] LEAF: 0xffff88b5ed64b600
+         [1] LEAF: 0xffff88b45200a100
+      [7] NODE: 0x55dab10a0840
+         [0] LEAF: 0xffff88b245db6200
+         [1] LEAF: 0xffff88b3d9cd9200
+         [e] LEAF: 0xffff88b7f0034d00
+         [f] LEAF: 0xffff88b3b6bb2200
+      [8] NODE: 0x55dab10a08e0
+         [0] LEAF: 0xffff88be12c57f00
+         [1] LEAF: 0xffff88bad3d49400
+      [9] NODE: 0x55dab10a0980
+         [0] LEAF: 0xffff88be33581d00
+         [1] LEAF: 0xffff88bc1e4cf600
+         [2] LEAF: 0xffff88bfc530f800
+         [d] LEAF: 0xffff88bae33df800
+         [e] LEAF: 0xffff88bc2f461400
+         [f] LEAF: 0xffff88be36935d00
+      [a] NODE: 0x55dab10a0a20
+         [0] LEAF: 0xffff88b1c0b15200
+         [1] LEAF: 0xffff88babf1b8000
+      [b] NODE: 0x55dab10a0ac0
+         [0] LEAF: 0xffff88b86f11c600
+         [1] LEAF: 0xffff88ba96902d00
+         [2] LEAF: 0xffff88ba08d50e00
+         [3] LEAF: 0xffff88bcbdc6b600
+         [4] LEAF: 0xffff88bb628c9500
+         [e] LEAF: 0xffff88b4715d3c00
+         [f] LEAF: 0xffff88be5334c500
+      [c] NODE: 0x55dab10a0b60
+         [0] LEAF: 0xffff88b4e5981900
+         [1] LEAF: 0xffff88b3c3623800
+         [2] LEAF: 0xffff88b5bf9d1e00
+         [d] LEAF: 0xffff88bb9e1e5b00
+         [e] LEAF: 0xffff88bee3c82100
+         [f] LEAF: 0xffff88b8a08e2000
+      [d] NODE: 0x55dab10a0c00
+         [0] LEAF: 0xffff88baadbbe200
+         [1] LEAF: 0xffff88b64e269200
+         [c] LEAF: 0xffff88b0e857e100
+         [d] LEAF: 0xffff88b92c1c3500
+         [e] LEAF: 0xffff88b67f543a00
+         [f] LEAF: 0xffff88b3d6297c00
+      [e] NODE: 0x55dab10a0ca0
+         [0] LEAF: 0xffff88b2fc1d6a00
+         [1] LEAF: 0xffff88bf88826200
+      [f] NODE: 0x55dab10a0d40
+         [0] LEAF: 0xffff88b95fea4e00
+         [1] LEAF: 0xffff88bcc511be00
+         [e] LEAF: 0xffff88b50b1f6d00
+         [f] LEAF: 0xffff88bb877f2600
+   [d] NODE: 0x55dab10a0de0
+      [0] NODE: 0x55dab10a0e80
+         [0] LEAF: 0xffff88b3356caf00
+         [1] LEAF: 0xffff88b4e5981d00
+         [a] LEAF: 0xffff88ba969df400
+         [b] LEAF: 0xffff88b11cae4e00
+         [c] LEAF: 0xffff88babbaa9500
+         [d] LEAF: 0xffff88bb71e13300
+         [e] LEAF: 0xffff88bac177cc00
+         [f] LEAF: 0xffff88bc3364e100
+      [1] NODE: 0x55dab10a0f20
+         [0] LEAF: 0xffff88b89f5dc900
+         [1] LEAF: 0xffff88bb7f49c100
+         [d] LEAF: 0xffff88b72b662f00
+         [e] LEAF: 0xffff88b5d2f76d00
+         [f] LEAF: 0xffff88b51f4d9d00
+      [2] NODE: 0x55dab10a0fc0
+         [0] LEAF: 0xffff887b0cd31300
+         [1] LEAF: 0xffff88b9df225900
+         [c] LEAF: 0xffff88bd8c19a400
+         [d] LEAF: 0xffff88b7b6eeb800
+         [e] LEAF: 0xffff88bf0c856a00
+         [f] LEAF: 0xffff88bd73d9c100
+      [3] NODE: 0x55dab10a1060
+         [0] LEAF: 0xffff887b0cd31a00
+         [1] LEAF: 0xffff88bdbf9eb300
+         [e] LEAF: 0xffff88ba969dfc00
+         [f] LEAF: 0xffff88bcd35b4500
+      [4] NODE: 0x55dab10a1100
+         [0] LEAF: 0xffff88bcd5a27f00
+         [1] LEAF: 0xffff88b5bdb10500
+         [d] LEAF: 0xffff88baa84d1c00
+         [e] LEAF: 0xffff88b7ec82d800
+         [f] LEAF: 0xffff88b9fce0cd00
+      [5] NODE: 0x55dab10a11a0
+         [0] LEAF: 0xffff88bae471f900
+         [1] LEAF: 0xffff889943ded300
+         [2] LEAF: 0xffff88b34109f900
+         [3] LEAF: 0xffff88b4e5980700
+         [d] LEAF: 0xffff88bfc501fd00
+         [e] LEAF: 0xffff88b33577b300
+         [f] LEAF: 0xffff88b471619e00
+      [6] NODE: 0x55dab10a1240
+         [0] LEAF: 0xffff88ba98c1b600
+         [1] LEAF: 0xffff88b44c38ab00
+      [7] LEAF: 0xffff88b252de1700
+      [8] NODE: 0x55dab10a12e0
+         [0] LEAF: 0xffff88b323289800
+         [1] LEAF: 0xffff88bcc1e89300
+         [f] LEAF: 0xffff88bb628c8300
+      [9] NODE: 0x55dab10a1380
+         [0] LEAF: 0xffff88ae3f169b00
+         [1] LEAF: 0xffff88b973806400
+         [2] LEAF: 0xffff88b72e971900
+         [a] LEAF: 0xffff88b5e7705100
+         [b] LEAF: 0xffff88bb5fe1b600
+         [c] LEAF: 0xffff88b0e860cc00
+         [d] LEAF: 0xffff88b67f543f00
+         [e] LEAF: 0xffff88bab1638b00
+         [f] LEAF: 0xffff88b5c5858e00
+      [a] NODE: 0x55dab10a1420
+         [0] LEAF: 0xffff88b88b0e7a00
+         [1] LEAF: 0xffff88b11cbd1400
+         [2] LEAF: 0xffff88b72d2e9100
+         [d] LEAF: 0xffff88b2768dab00
+         [e] LEAF: 0xffff88b2fc14be00
+         [f] LEAF: 0xffff88b9fce0dd00
+      [b] LEAF: 0xffff88bac177d400
+      [c] NODE: 0x55dab10a14c0
+         [0] LEAF: 0xffff88b68f007100
+         [1] LEAF: 0xffff88b9400a2400
+         [f] LEAF: 0xffff88b504acb400
+      [d] NODE: 0x55dab10a1560
+         [0] LEAF: 0xffff88b10ab7a600
+         [1] LEAF: 0xffff88b4e5981000
+         [d] LEAF: 0xffff88befc5c1d00
+         [e] LEAF: 0xffff88b870b2b500
+         [f] LEAF: 0xffff88b32a2bec00
+      [e] LEAF: 0xffff88ba1f4a5700
+      [f] NODE: 0x55dab10a1600
+         [0] LEAF: 0xffff88b73732ed00
+         [1] LEAF: 0xffff88b3d9cd9500
+         [2] LEAF: 0xffff88bc3364e700
+         [d] LEAF: 0xffff887a71cbf000
+         [e] LEAF: 0xffff88bc463cf500
+         [f] LEAF: 0xffff88b5c967b900
+   [e] NODE: 0x55dab10a16a0
+      [0] NODE: 0x55dab10a1740
+         [0] LEAF: 0xffff88bdaf079900
+         [1] LEAF: 0xffff88b44c3a4e00
+         [f] LEAF: 0xffff88b7e1b42c00
+      [1] NODE: 0x55dab10a17e0
+         [0] LEAF: 0xffff88b9df225400
+         [1] LEAF: 0xffff88be26425f00
+         [f] LEAF: 0xffff88befc5c0600
+      [2] LEAF: 0xffff88a1d33c3600
+      [3] NODE: 0x55dab10a1880
+         [0] LEAF: 0xffff88bc2e081200
+         [1] LEAF: 0xffff88bcbd7e8800
+         [2] LEAF: 0xffff88b4f2672d00
+         [c] LEAF: 0xffff88b67f542d00
+         [d] LEAF: 0xffff88b5bf9d0b00
+         [e] LEAF: 0xffff88befb6eef00
+         [f] LEAF: 0xffff88ba97403000
+      [4] NODE: 0x55dab10a1920
+         [0] LEAF: 0xffff88bf1c126200
+         [1] LEAF: 0xffff88ba965e6400
+         [2] LEAF: 0xffff88b5c5858100
+         [c] LEAF: 0xffff88b5bf9d0000
+         [d] LEAF: 0xffff88b3c740e100
+         [e] LEAF: 0xffff88b1b8f45f00
+         [f] LEAF: 0xffff88baadbbe600
+      [5] NODE: 0x55dab10a19c0
+         [0] LEAF: 0xffff88bb62aa1700
+         [1] LEAF: 0xffff88b4daf47c00
+         [d] LEAF: 0xffff88b5a3273200
+         [e] LEAF: 0xffff88bb9e1e5c00
+         [f] LEAF: 0xffff88b3d6297700
+      [6] NODE: 0x55dab10a1a60
+         [0] LEAF: 0xffff88bfba655100
+         [1] LEAF: 0xffff88bc3da2ec00
+         [2] LEAF: 0xffff88bb72199700
+         [3] LEAF: 0xffff88b940b8f500
+         [f] LEAF: 0xffff88b3c378cb00
+      [7] NODE: 0x55dab10a1b00
+         [0] LEAF: 0xffff88b737a29900
+         [1] LEAF: 0xffff88b1c0b15800
+         [2] LEAF: 0xffff88ae3f169100
+         [d] LEAF: 0xffff88b2fc12fb00
+         [e] LEAF: 0xffff88b1b87dee00
+         [f] LEAF: 0xffff88befb6ee500
+      [8] LEAF: 0xffff88bb83cd7600
+      [9] NODE: 0x55dab10a1ba0
+         [0] LEAF: 0xffff88b72d2e9000
+         [1] LEAF: 0xffff887a63c1fa00
+         [2] LEAF: 0xffff88b741c52400
+         [f] LEAF: 0xffff88bb7ee4dd00
+      [a] NODE: 0x55dab10a1c40
+         [0] LEAF: 0xffff88b3356cb600
+         [1] LEAF: 0xffff88bc59546e00
+         [d] LEAF: 0xffff88b93428ae00
+         [e] LEAF: 0xffff88bcbd6ae400
+         [f] LEAF: 0xffff88b5d2f2d000
+      [b] LEAF: 0xffff88b52ae39800
+      [c] NODE: 0x55dab10a1ce0
+         [0] LEAF: 0xffff88b7c901a900
+         [1] LEAF: 0xffff88baa849a700
+         [e] LEAF: 0xffff88b1b8014f00
+         [f] LEAF: 0xffff88b46a310700
+      [e] NODE: 0x55dab10a1d80
+         [0] LEAF: 0xffff88bc2e081900
+         [1] LEAF: 0xffff88b33577af00
+         [f] LEAF: 0xffff88befb795600
+      [f] NODE: 0x55dab10a1e20
+         [0] LEAF: 0xffff88b43fd74500
+         [1] LEAF: 0xffff88b433808900
+         [2] LEAF: 0xffff88bd73d9d300
+         [d] LEAF: 0xffff88bab1789100
+         [e] LEAF: 0xffff88b4daf47400
+         [f] LEAF: 0xffff88b68f045600
+   [f] NODE: 0x55dab10a1ec0
+      [0] NODE: 0x55dab10a1f60
+         [0] LEAF: 0xffff88b9ddd0a600
+         [1] LEAF: 0xffff88b10a1ec200
+      [1] NODE: 0x55dab10a2000
+         [0] LEAF: 0xffff88b7b33f6c00
+         [1] LEAF: 0xffff88b3356cb800
+         [2] LEAF: 0xffff88b68f006f00
+         [3] LEAF: 0xffff88bc2e080200
+         [d] LEAF: 0xffff88b72c5cb200
+         [e] LEAF: 0xffff88bad2e38100
+         [f] LEAF: 0xffff88b51f4d9b00
+      [2] NODE: 0x55dab10a20a0
+         [0] LEAF: 0xffff88b4f8e7ca00
+         [1] LEAF: 0xffff88b11cbcfb00
+      [3] NODE: 0x55dab10a2140
+         [0] LEAF: 0xffff88bd73d9c800
+         [1] LEAF: 0xffff88bda4fc3400
+         [2] LEAF: 0xffff88b33577a900
+         [f] LEAF: 0xffff88b10a1edd00
+      [4] LEAF: 0xffff88b24702a800
+      [5] NODE: 0x55dab10a21e0
+         [0] LEAF: 0xffff88b32f52a100
+         [1] LEAF: 0xffff88b92c1c2300
+         [2] LEAF: 0xffff889943dece00
+         [c] LEAF: 0xffff88bacf4d3700
+         [d] LEAF: 0xffff88bc463ce600
+         [e] LEAF: 0xffff88bad2e39600
+         [f] LEAF: 0xffff88b3ee337a00
+      [6] NODE: 0x55dab10a2280
+         [0] LEAF: 0xffff88b252de1f00
+         [1] LEAF: 0xffff8881f8f4e900
+         [2] LEAF: 0xffff88bfac756e00
+         [a] LEAF: 0xffff88bd8c19b900
+         [b] LEAF: 0xffff88be26425d00
+         [c] LEAF: 0xffff88b7c901da00
+         [d] LEAF: 0xffff88b687c40600
+         [e] LEAF: 0xffff88bbacc8fc00
+         [f] LEAF: 0xffff88b7d0c11f00
+      [7] NODE: 0x55dab10a2320
+         [0] LEAF: 0xffff88b447faf800
+         [1] LEAF: 0xffff88b252d71b00
+         [e] LEAF: 0xffff88bc414fb500
+         [f] LEAF: 0xffff88b3385ab700
+      [8] NODE: 0x55dab10a23c0
+         [1] LEAF: 0xffff88b5c9ef7300
+         [e] LEAF: 0xffff8875250cdf00
+         [f] LEAF: 0xffff88b92c1c3d00
+      [9] NODE: 0x55dab10a2460
+         [0] LEAF: 0xffff88b5dfd23900
+         [1] LEAF: 0xffff88bac7c36800
+         [f] LEAF: 0xffff88bac3017500
+      [a] NODE: 0x55dab10a2500
+         [0] LEAF: 0xffff88bcd38e3c00
+         [1] LEAF: 0xffff88be4c23bd00
+         [2] LEAF: 0xffff88babee67d00
+         [e] LEAF: 0xffff88b7e1b43e00
+         [f] LEAF: 0xffff88b7d0c10600
+      [b] LEAF: 0xffff88b72d648a00
+      [c] NODE: 0x55dab10a25a0
+         [0] LEAF: 0xffff88b5c83a3200
+         [1] LEAF: 0xffff88b1aaf0b200
+         [f] LEAF: 0xffff88b50b10f500
+      [d] NODE: 0x55dab10a2640
+         [0] LEAF: 0xffff88b5bf94b000
+         [1] LEAF: 0xffff88be4c23bf00
+         [2] LEAF: 0xffff88bc2e29d200
+         [3] LEAF: 0xffff88bb7f023900
+         [e] LEAF: 0xffff88b5e9519700
+         [f] LEAF: 0xffff88b1a6cf6100
+      [e] NODE: 0x55dab10a26e0
+         [0] LEAF: 0xffff88bfd0598500
+         [1] LEAF: 0xffff88b254582700
+         [d] LEAF: 0xffff88bb4de6d400
+         [e] LEAF: 0xffff88b6770dcc00
+         [f] LEAF: 0xffff88b7e1aa0800
+      [f] NODE: 0x55dab10a2780
+         [0] LEAF: 0xffff88bc3364fb00
+         [1] LEAF: 0xffff88b33ac73100
+         [2] LEAF: 0xffff88b4daf46200
+         [f] LEAF: 0xffff88b5ef3e5200
+Running GC...
+-->assoc_array_gc()
+dup node 0x55dab10992c0 -> 0x55dab10a3980
+dup node 0x55dab1099360 -> 0x55dab10a3a20
+dup node 0x55dab1099400 -> 0x55dab10a3ac0
+-- compress node 0x55dab10a3ac0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10994a0 -> 0x55dab10a3b60
+-- compress node 0x55dab10a3b60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099540 -> 0x55dab10a3c00
+-- compress node 0x55dab10a3c00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10995e0 -> 0x55dab10a3ca0
+-- compress node 0x55dab10a3ca0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099680 -> 0x55dab10a3d40
+-- compress node 0x55dab10a3d40 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099720 -> 0x55dab10a3de0
+-- compress node 0x55dab10a3de0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10997c0 -> 0x55dab10a3e80
+-- compress node 0x55dab10a3e80 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099860 -> 0x55dab10a3f20
+-- compress node 0x55dab10a3f20 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099900 -> 0x55dab10a3fc0
+-- compress node 0x55dab10a3fc0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10999a0 -> 0x55dab10a4060
+-- compress node 0x55dab10a4060 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099a40 -> 0x55dab10a4100
+-- compress node 0x55dab10a4100 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099ae0 -> 0x55dab10a41a0
+-- compress node 0x55dab10a41a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099b80 -> 0x55dab10a4240
+-- compress node 0x55dab10a4240 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099c20 -> 0x55dab10a42e0
+-- compress node 0x55dab10a42e0 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a3a20 --
+free=2, leaves=0
+[0] fold node 0/3 [nx 0]
+[1] fold node 0/4 [nx 0]
+[3] fold node 0/5 [nx 0]
+[4] fold node 0/6 [nx 0]
+[5] fold node 0/7 [nx 0]
+[6] fold node 0/8 [nx 0]
+[7] fold node 0/9 [nx 0]
+[8] fold node 0/10 [nx 0]
+[9] fold node 0/11 [nx 0]
+[10] fold node 0/12 [nx 0]
+[11] fold node 0/13 [nx 0]
+[12] fold node 0/14 [nx 0]
+[13] fold node 0/15 [nx 0]
+[15] fold node 0/16 [nx 0]
+after: 0
+dup node 0x55dab1099cc0 -> 0x55dab10a3f20
+dup node 0x55dab1099d60 -> 0x55dab10a3fc0
+-- compress node 0x55dab10a3fc0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099e00 -> 0x55dab10a4060
+-- compress node 0x55dab10a4060 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099ea0 -> 0x55dab10a4100
+-- compress node 0x55dab10a4100 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099f40 -> 0x55dab10a41a0
+-- compress node 0x55dab10a41a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab1099fe0 -> 0x55dab10a4240
+-- compress node 0x55dab10a4240 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a080 -> 0x55dab10a42e0
+-- compress node 0x55dab10a42e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a120 -> 0x55dab10a4380
+-- compress node 0x55dab10a4380 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a1c0 -> 0x55dab10a4420
+-- compress node 0x55dab10a4420 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a260 -> 0x55dab10a44c0
+-- compress node 0x55dab10a44c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a300 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a3a0 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a440 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a4e0 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a580 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a620 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a6c0 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a3f20 --
+free=0, leaves=0
+[0] fold node 0/1 [nx 0]
+[1] fold node 0/2 [nx 0]
+[2] fold node 0/3 [nx 0]
+[3] fold node 0/4 [nx 0]
+[4] fold node 0/5 [nx 0]
+[5] fold node 0/6 [nx 0]
+[6] fold node 0/7 [nx 0]
+[7] fold node 0/8 [nx 0]
+[8] fold node 0/9 [nx 0]
+[9] fold node 0/10 [nx 0]
+[10] fold node 0/11 [nx 0]
+[11] fold node 0/12 [nx 0]
+[12] fold node 0/13 [nx 0]
+[13] fold node 0/14 [nx 0]
+[14] fold node 0/15 [nx 0]
+[15] fold node 0/16 [nx 0]
+after: 0
+dup node 0x55dab109a760 -> 0x55dab10a3fc0
+dup node 0x55dab109a800 -> 0x55dab10a4060
+-- compress node 0x55dab10a4060 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a8a0 -> 0x55dab10a4100
+-- compress node 0x55dab10a4100 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a940 -> 0x55dab10a41a0
+-- compress node 0x55dab10a41a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109a9e0 -> 0x55dab10a4240
+-- compress node 0x55dab10a4240 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109aa80 -> 0x55dab10a42e0
+-- compress node 0x55dab10a42e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ab20 -> 0x55dab10a4380
+-- compress node 0x55dab10a4380 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109abc0 -> 0x55dab10a4420
+-- compress node 0x55dab10a4420 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ac60 -> 0x55dab10a44c0
+-- compress node 0x55dab10a44c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ad00 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab109ada0 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ae40 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109aee0 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109af80 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b020 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b0c0 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a3fc0 --
+free=1, leaves=0
+[0] fold node 0/2 [nx 0]
+[1] fold node 0/3 [nx 0]
+[2] fold node 0/4 [nx 0]
+[3] fold node 0/5 [nx 0]
+[4] fold node 0/6 [nx 0]
+[5] fold node 0/7 [nx 0]
+[7] fold node 0/8 [nx 0]
+[8] fold node 0/9 [nx 0]
+[9] fold node 1/10 [nx 0]
+[10] fold node 0/10 [nx 1]
+[11] fold node 0/11 [nx 1]
+[12] fold node 0/12 [nx 1]
+[13] fold node 0/13 [nx 1]
+[14] fold node 0/14 [nx 1]
+[15] fold node 0/15 [nx 1]
+after: 1
+dup node 0x55dab109b160 -> 0x55dab10a4060
+dup node 0x55dab109b200 -> 0x55dab10a4100
+-- compress node 0x55dab10a4100 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b2a0 -> 0x55dab10a41a0
+-- compress node 0x55dab10a41a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b340 -> 0x55dab10a4240
+-- compress node 0x55dab10a4240 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b3e0 -> 0x55dab10a42e0
+-- compress node 0x55dab10a42e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b480 -> 0x55dab10a4380
+-- compress node 0x55dab10a4380 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b520 -> 0x55dab10a4420
+-- compress node 0x55dab10a4420 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b5c0 -> 0x55dab10a44c0
+-- compress node 0x55dab10a44c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b660 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b700 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b7a0 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b840 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b8e0 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109b980 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ba20 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109bac0 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=15, leaves=1
+after: 1
+-- compress node 0x55dab10a4060 --
+free=1, leaves=0
+[0] fold node 0/2 [nx 0]
+[2] fold node 0/3 [nx 0]
+[3] fold node 0/4 [nx 0]
+[4] fold node 0/5 [nx 0]
+[5] fold node 0/6 [nx 0]
+[6] fold node 0/7 [nx 0]
+[7] fold node 0/8 [nx 0]
+[8] fold node 0/9 [nx 0]
+[9] fold node 0/10 [nx 0]
+[10] fold node 0/11 [nx 0]
+[11] fold node 0/12 [nx 0]
+[12] fold node 0/13 [nx 0]
+[13] fold node 0/14 [nx 0]
+[14] fold node 0/15 [nx 0]
+[15] fold node 1/16 [nx 0]
+after: 1
+dup node 0x55dab109bb60 -> 0x55dab10a4100
+dup node 0x55dab109bc00 -> 0x55dab10a41a0
+-- compress node 0x55dab10a41a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109bca0 -> 0x55dab10a4240
+-- compress node 0x55dab10a4240 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109bd40 -> 0x55dab10a42e0
+-- compress node 0x55dab10a42e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109bde0 -> 0x55dab10a4380
+-- compress node 0x55dab10a4380 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109be80 -> 0x55dab10a4420
+-- compress node 0x55dab10a4420 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109bf20 -> 0x55dab10a44c0
+-- compress node 0x55dab10a44c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109bfc0 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c060 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c100 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c1a0 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c240 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c2e0 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c380 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c420 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c4c0 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a4100 --
+free=1, leaves=0
+[0] fold node 0/2 [nx 0]
+[1] fold node 0/3 [nx 0]
+[2] fold node 0/4 [nx 0]
+[3] fold node 0/5 [nx 0]
+[4] fold node 0/6 [nx 0]
+[5] fold node 0/7 [nx 0]
+[6] fold node 0/8 [nx 0]
+[7] fold node 0/9 [nx 0]
+[8] fold node 0/10 [nx 0]
+[9] fold node 0/11 [nx 0]
+[10] fold node 0/12 [nx 0]
+[11] fold node 0/13 [nx 0]
+[13] fold node 0/14 [nx 0]
+[14] fold node 0/15 [nx 0]
+[15] fold node 0/16 [nx 0]
+after: 0
+dup node 0x55dab109c560 -> 0x55dab10a41a0
+dup node 0x55dab109c600 -> 0x55dab10a4240
+-- compress node 0x55dab10a4240 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c6a0 -> 0x55dab10a42e0
+-- compress node 0x55dab10a42e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c740 -> 0x55dab10a4380
+-- compress node 0x55dab10a4380 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c7e0 -> 0x55dab10a4420
+-- compress node 0x55dab10a4420 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c880 -> 0x55dab10a44c0
+-- compress node 0x55dab10a44c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c920 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109c9c0 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ca60 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109cb00 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109cba0 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109cc40 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109cce0 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109cd80 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ce20 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109cec0 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109cf60 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a41a0 --
+free=0, leaves=0
+[0] fold node 0/1 [nx 0]
+[1] fold node 0/2 [nx 0]
+[2] fold node 0/3 [nx 0]
+[3] fold node 0/4 [nx 0]
+[4] fold node 0/5 [nx 0]
+[5] fold node 0/6 [nx 0]
+[6] fold node 0/7 [nx 0]
+[7] fold node 0/8 [nx 0]
+[8] fold node 0/9 [nx 0]
+[9] fold node 0/10 [nx 0]
+[10] fold node 0/11 [nx 0]
+[11] fold node 0/12 [nx 0]
+[12] fold node 0/13 [nx 0]
+[13] fold node 0/14 [nx 0]
+[14] fold node 0/15 [nx 0]
+[15] fold node 0/16 [nx 0]
+after: 0
+dup node 0x55dab109d000 -> 0x55dab10a4240
+dup node 0x55dab109d0a0 -> 0x55dab10a42e0
+-- compress node 0x55dab10a42e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d140 -> 0x55dab10a4380
+-- compress node 0x55dab10a4380 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d1e0 -> 0x55dab10a4420
+-- compress node 0x55dab10a4420 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d280 -> 0x55dab10a44c0
+-- compress node 0x55dab10a44c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d320 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d3c0 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d460 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d500 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d5a0 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d640 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d6e0 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d780 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d820 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab109d8c0 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109d960 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a4240 --
+free=1, leaves=0
+[0] fold node 0/2 [nx 0]
+[1] fold node 0/3 [nx 0]
+[2] fold node 0/4 [nx 0]
+[3] fold node 0/5 [nx 0]
+[4] fold node 0/6 [nx 0]
+[5] fold node 0/7 [nx 0]
+[6] fold node 0/8 [nx 0]
+[7] fold node 0/9 [nx 0]
+[8] fold node 0/10 [nx 0]
+[9] fold node 0/11 [nx 0]
+[10] fold node 0/12 [nx 0]
+[11] fold node 0/13 [nx 0]
+[12] fold node 1/14 [nx 0]
+[13] fold node 0/14 [nx 1]
+[15] fold node 0/15 [nx 1]
+after: 1
+dup node 0x55dab109da00 -> 0x55dab10a42e0
+dup node 0x55dab109daa0 -> 0x55dab10a4380
+-- compress node 0x55dab10a4380 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab109db40 -> 0x55dab10a4420
+-- compress node 0x55dab10a4420 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109dbe0 -> 0x55dab10a44c0
+-- compress node 0x55dab10a44c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109dc80 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109dd20 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ddc0 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109de60 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109df00 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109dfa0 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e040 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab109e0e0 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e180 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e220 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e2c0 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a42e0 --
+free=2, leaves=0
+[0] fold node 1/3 [nx 0]
+[1] fold node 0/3 [nx 1]
+[2] fold node 0/4 [nx 1]
+[3] fold node 0/5 [nx 1]
+[4] fold node 0/6 [nx 1]
+[5] fold node 0/7 [nx 1]
+[7] fold node 0/8 [nx 1]
+[8] fold node 0/9 [nx 1]
+[9] fold node 0/10 [nx 1]
+[10] fold node 1/11 [nx 1]
+[11] fold node 0/11 [nx 2]
+[12] fold node 0/12 [nx 2]
+[13] fold node 0/13 [nx 2]
+[14] fold node 0/14 [nx 2]
+after: 2
+ENTERING PROBLEM NODE
+dup node 0x55dab109e360 -> 0x55dab10a4380
+dup node 0x55dab109e400 -> 0x55dab10a4420
+-- compress node 0x55dab10a4420 --
+free=14, leaves=2
+after: 2
+dup node 0x55dab109e4a0 -> 0x55dab10a44c0
+-- compress node 0x55dab10a44c0 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab109e540 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e5e0 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e680 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e720 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e7c0 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e860 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e900 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109e9a0 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ea40 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109eae0 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109eb80 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ec20 -> 0x55dab10a4c40
+-- compress node 0x55dab10a4c40 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ecc0 -> 0x55dab10a4ce0
+-- compress node 0x55dab10a4ce0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ed60 -> 0x55dab10a4d80
+-- compress node 0x55dab10a4d80 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a4380 --
+free=0, leaves=0
+[0] retain node 2/1 [nx 0]
+[1] fold node 1/1 [nx 0]
+[2] fold node 0/1 [nx 2]
+[3] fold node 0/2 [nx 2]
+[4] fold node 0/3 [nx 2]
+[5] fold node 0/4 [nx 2]
+[6] fold node 0/5 [nx 2]
+[7] fold node 0/6 [nx 2]
+[8] fold node 0/7 [nx 2]
+[9] fold node 0/8 [nx 2]
+[10] fold node 0/9 [nx 2]
+[11] fold node 0/10 [nx 2]
+[12] fold node 0/11 [nx 2]
+[13] fold node 0/12 [nx 2]
+[14] fold node 0/13 [nx 2]
+[15] fold node 0/14 [nx 2]
+internal nodes remain despite neough space, retrying
+-- compress node 0x55dab10a4380 --
+free=14, leaves=1
+[0] fold node 2/15 [nx 0]
+after: 3
+dup node 0x55dab109ee00 -> 0x55dab10a4420
+dup node 0x55dab109eea0 -> 0x55dab10a44c0
+-- compress node 0x55dab10a44c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ef40 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109efe0 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f080 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f120 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f1c0 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f260 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f300 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f3a0 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f440 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f4e0 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f580 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f620 -> 0x55dab10a4c40
+-- compress node 0x55dab10a4c40 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f6c0 -> 0x55dab10a4ce0
+-- compress node 0x55dab10a4ce0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f760 -> 0x55dab10a4d80
+-- compress node 0x55dab10a4d80 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f800 -> 0x55dab10a4e20
+-- compress node 0x55dab10a4e20 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a4420 --
+free=0, leaves=0
+[0] fold node 0/1 [nx 0]
+[1] fold node 0/2 [nx 0]
+[2] fold node 0/3 [nx 0]
+[3] fold node 0/4 [nx 0]
+[4] fold node 0/5 [nx 0]
+[5] fold node 0/6 [nx 0]
+[6] fold node 0/7 [nx 0]
+[7] fold node 0/8 [nx 0]
+[8] fold node 0/9 [nx 0]
+[9] fold node 0/10 [nx 0]
+[10] fold node 0/11 [nx 0]
+[11] fold node 0/12 [nx 0]
+[12] fold node 0/13 [nx 0]
+[13] fold node 0/14 [nx 0]
+[14] fold node 0/15 [nx 0]
+[15] fold node 0/16 [nx 0]
+after: 0
+dup node 0x55dab109f8a0 -> 0x55dab10a44c0
+dup node 0x55dab109f940 -> 0x55dab10a4560
+-- compress node 0x55dab10a4560 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109f9e0 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109fa80 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109fb20 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109fbc0 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109fc60 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109fd00 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109fda0 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109fe40 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109fee0 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab109ff80 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0020 -> 0x55dab10a4c40
+-- compress node 0x55dab10a4c40 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a00c0 -> 0x55dab10a4ce0
+-- compress node 0x55dab10a4ce0 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab10a0160 -> 0x55dab10a4d80
+-- compress node 0x55dab10a4d80 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0200 -> 0x55dab10a4e20
+-- compress node 0x55dab10a4e20 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a02a0 -> 0x55dab10a4ec0
+-- compress node 0x55dab10a4ec0 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a44c0 --
+free=0, leaves=0
+[0] fold node 0/1 [nx 0]
+[1] fold node 0/2 [nx 0]
+[2] fold node 0/3 [nx 0]
+[3] fold node 0/4 [nx 0]
+[4] fold node 0/5 [nx 0]
+[5] fold node 0/6 [nx 0]
+[6] fold node 0/7 [nx 0]
+[7] fold node 0/8 [nx 0]
+[8] fold node 0/9 [nx 0]
+[9] fold node 0/10 [nx 0]
+[10] fold node 0/11 [nx 0]
+[11] fold node 0/12 [nx 0]
+[12] fold node 1/13 [nx 0]
+[13] fold node 0/13 [nx 1]
+[14] fold node 0/14 [nx 1]
+[15] fold node 0/15 [nx 1]
+after: 1
+dup node 0x55dab10a0340 -> 0x55dab10a4560
+dup node 0x55dab10a03e0 -> 0x55dab10a4600
+-- compress node 0x55dab10a4600 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0480 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab10a0520 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab10a05c0 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0660 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0700 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a07a0 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0840 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a08e0 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0980 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0a20 -> 0x55dab10a4c40
+-- compress node 0x55dab10a4c40 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0ac0 -> 0x55dab10a4ce0
+-- compress node 0x55dab10a4ce0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0b60 -> 0x55dab10a4d80
+-- compress node 0x55dab10a4d80 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0c00 -> 0x55dab10a4e20
+-- compress node 0x55dab10a4e20 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0ca0 -> 0x55dab10a4ec0
+-- compress node 0x55dab10a4ec0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0d40 -> 0x55dab10a4f60
+-- compress node 0x55dab10a4f60 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a4560 --
+free=0, leaves=0
+[0] fold node 0/1 [nx 0]
+[1] fold node 1/2 [nx 0]
+[2] fold node 1/2 [nx 1]
+[3] fold node 0/2 [nx 2]
+[4] fold node 0/3 [nx 2]
+[5] fold node 0/4 [nx 2]
+[6] fold node 0/5 [nx 2]
+[7] fold node 0/6 [nx 2]
+[8] fold node 0/7 [nx 2]
+[9] fold node 0/8 [nx 2]
+[10] fold node 0/9 [nx 2]
+[11] fold node 0/10 [nx 2]
+[12] fold node 0/11 [nx 2]
+[13] fold node 0/12 [nx 2]
+[14] fold node 0/13 [nx 2]
+[15] fold node 0/14 [nx 2]
+after: 2
+dup node 0x55dab10a0de0 -> 0x55dab10a4600
+dup node 0x55dab10a0e80 -> 0x55dab10a46a0
+-- compress node 0x55dab10a46a0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0f20 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a0fc0 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab10a1060 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab10a1100 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a11a0 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1240 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a12e0 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1380 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1420 -> 0x55dab10a4c40
+-- compress node 0x55dab10a4c40 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a14c0 -> 0x55dab10a4ce0
+-- compress node 0x55dab10a4ce0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1560 -> 0x55dab10a4d80
+-- compress node 0x55dab10a4d80 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1600 -> 0x55dab10a4e20
+-- compress node 0x55dab10a4e20 --
+free=15, leaves=1
+after: 1
+-- compress node 0x55dab10a4600 --
+free=3, leaves=0
+[0] fold node 0/4 [nx 0]
+[1] fold node 0/5 [nx 0]
+[2] fold node 1/6 [nx 0]
+[3] fold node 1/6 [nx 1]
+[4] fold node 0/6 [nx 2]
+[5] fold node 0/7 [nx 2]
+[6] fold node 0/8 [nx 2]
+[8] fold node 0/9 [nx 2]
+[9] fold node 0/10 [nx 2]
+[10] fold node 0/11 [nx 2]
+[12] fold node 0/12 [nx 2]
+[13] fold node 0/13 [nx 2]
+[15] fold node 1/14 [nx 2]
+after: 3
+dup node 0x55dab10a16a0 -> 0x55dab10a46a0
+dup node 0x55dab10a1740 -> 0x55dab10a4740
+-- compress node 0x55dab10a4740 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a17e0 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1880 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1920 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a19c0 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1a60 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1b00 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1ba0 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1c40 -> 0x55dab10a4c40
+-- compress node 0x55dab10a4c40 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1ce0 -> 0x55dab10a4ce0
+-- compress node 0x55dab10a4ce0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1d80 -> 0x55dab10a4d80
+-- compress node 0x55dab10a4d80 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a1e20 -> 0x55dab10a4e20
+-- compress node 0x55dab10a4e20 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a46a0 --
+free=4, leaves=0
+[0] fold node 0/5 [nx 0]
+[1] fold node 0/6 [nx 0]
+[3] fold node 0/7 [nx 0]
+[4] fold node 0/8 [nx 0]
+[5] fold node 0/9 [nx 0]
+[6] fold node 0/10 [nx 0]
+[7] fold node 0/11 [nx 0]
+[9] fold node 0/12 [nx 0]
+[10] fold node 0/13 [nx 0]
+[12] fold node 0/14 [nx 0]
+[14] fold node 0/15 [nx 0]
+[15] fold node 0/16 [nx 0]
+after: 0
+dup node 0x55dab10a1ec0 -> 0x55dab10a4740
+dup node 0x55dab10a1f60 -> 0x55dab10a47e0
+-- compress node 0x55dab10a47e0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a2000 -> 0x55dab10a4880
+-- compress node 0x55dab10a4880 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a20a0 -> 0x55dab10a4920
+-- compress node 0x55dab10a4920 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a2140 -> 0x55dab10a49c0
+-- compress node 0x55dab10a49c0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a21e0 -> 0x55dab10a4a60
+-- compress node 0x55dab10a4a60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a2280 -> 0x55dab10a4b00
+-- compress node 0x55dab10a4b00 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a2320 -> 0x55dab10a4ba0
+-- compress node 0x55dab10a4ba0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a23c0 -> 0x55dab10a4c40
+-- compress node 0x55dab10a4c40 --
+free=15, leaves=1
+after: 1
+dup node 0x55dab10a2460 -> 0x55dab10a4ce0
+-- compress node 0x55dab10a4ce0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a2500 -> 0x55dab10a4d80
+-- compress node 0x55dab10a4d80 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a25a0 -> 0x55dab10a4e20
+-- compress node 0x55dab10a4e20 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a2640 -> 0x55dab10a4ec0
+-- compress node 0x55dab10a4ec0 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a26e0 -> 0x55dab10a4f60
+-- compress node 0x55dab10a4f60 --
+free=16, leaves=0
+after: 0
+dup node 0x55dab10a2780 -> 0x55dab10a5000
+-- compress node 0x55dab10a5000 --
+free=16, leaves=0
+after: 0
+-- compress node 0x55dab10a4740 --
+free=2, leaves=0
+[0] fold node 0/3 [nx 0]
+[1] fold node 0/4 [nx 0]
+[2] fold node 0/5 [nx 0]
+[3] fold node 0/6 [nx 0]
+[5] fold node 0/7 [nx 0]
+[6] fold node 0/8 [nx 0]
+[7] fold node 0/9 [nx 0]
+[8] fold node 1/10 [nx 0]
+[9] fold node 0/10 [nx 1]
+[10] fold node 0/11 [nx 1]
+[12] fold node 0/12 [nx 1]
+[13] fold node 0/13 [nx 1]
+[14] fold node 0/14 [nx 1]
+[15] fold node 0/15 [nx 1]
+after: 1
+-- compress node 0x55dab10a3980 --
+free=1, leaves=0
+[1] fold node 0/2 [nx 0]
+[2] fold node 0/3 [nx 0]
+[3] fold node 1/4 [nx 0]
+[4] fold node 1/4 [nx 1]
+[5] fold node 0/4 [nx 2]
+[6] fold node 0/5 [nx 2]
+[7] fold node 1/6 [nx 2]
+[8] fold node 2/6 [nx 3]
+[9] fold node 3/5 [nx 5]
+[10] fold node 0/3 [nx 8]
+[11] fold node 1/4 [nx 8]
+[12] fold node 2/4 [nx 9]
+[13] fold node 3/3 [nx 11]
+[14] fold node 0/1 [nx 14]
+[15] fold node 1/2 [nx 14]
+after: 15
+Apply edit!
+After GC:
+NODE: 0x55dab10a3980
+   [0] LEAF: 0xffff88bab100fa00
+   [1] LEAF: 0xffff88bd8d224e00
+   [2] LEAF: 0xffff88bcdb35fe00
+   [3] LEAF: 0xffff88b100e37600
+   [4] LEAF: 0xffff887b0cd30400
+   [5] LEAF: 0xffff88b1c0c7fe00
+   [6] LEAF: 0xffff88b1c0db3f00
+   [7] LEAF: 0xffff88bd5ed59c00
+   [8] LEAF: 0xffff887b0cd30c00
+   [9] LEAF: 0xffff887b0cd30000
+   [a] LEAF: 0xffff887b0cd31c00
+   [b] LEAF: 0xffff887b0cd31300
+   [c] LEAF: 0xffff887b0cd31a00
+   [d] LEAF: 0xffff887a71cbf000
+   [e] LEAF: 0xffff8875250cdf00
