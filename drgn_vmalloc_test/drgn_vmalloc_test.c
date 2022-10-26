@@ -48,7 +48,7 @@ static int __init init_dentryref(void)
 	for (i = 0; i < NPAGE * PAGE_SIZE / 4; i++)
 		((uint32_t *)addr)[i] = val++;
 
-	printk(KERN_INFO "drgn_vmalloc_test: %p\n", addr);
+	printk(KERN_INFO "drgn_vmalloc_test: 0x%lx\n", (unsigned long)addr);
 	return 0;
 err:
 	cleanup();
