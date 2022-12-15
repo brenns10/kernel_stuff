@@ -35,6 +35,7 @@
 struct work {
 	struct work *next;
 	const char *path;
+	const char *pfx;
 	unsigned long start;
 	unsigned long stop;
 	unsigned long cur;
@@ -58,7 +59,7 @@ void *stat_worker(void *varg)
 	}
 
 	for (arg->cur = arg->start; arg->cur < arg->stop; arg->cur++) {
-		snprintf(filename, sizeof(filename), "file-%010lu", arg->cur);
+		snprintf(filename, sizeof(filename), "%s%010lu", arg->pfx, arg->cur);
 		if (fstatat(dirfd, filename, &statbuf, 0) == -1 && errno != ENOENT) {
 			perror("fstatat");
 			close(dirfd);
@@ -83,6 +84,8 @@ void help(void)
 	printf("  -t, --threads <N>  use N threads (default 1)\n");
 	printf("  -c, --count <N>    create N negative dentries (default 1000)\n");
 	printf("  -p, --path <PATH>  create negative dentries in PATH\n");
+	printf("  -P, --pfx  <STR>   name dentries with STR + 10-digit number\n");
+	printf("                     (default is \"file-\")\n");
 	printf("  -h, --help         show this message and exit.\n");
 	exit(EXIT_SUCCESS);
 }
@@ -93,13 +96,15 @@ int main(int argc, char **argv)
 	unsigned long count, increment, progress;
 	struct work *first = NULL, *cur;
 	char *path = get_current_dir_name();
+	char *pfx = "file-";
 	int opt;
-	const char *shopt = "t:c:p:h";
+	const char *shopt = "t:c:p:P:h";
 	static struct option lopt[] = {
 		{"--threads", required_argument, NULL, 't'},
 		{"--count",   required_argument, NULL, 'c'},
 		{"--path",    required_argument, NULL, 'p'},
 		{"--help",    no_argument,       NULL, 'h'},
+		{"--prefix",  required_argument, NULL, 'P'},
 	};
 	while ((opt = getopt_long(argc, argv, shopt, lopt, NULL)) != -1) {
 		switch (opt) {
@@ -115,6 +120,9 @@ int main(int argc, char **argv)
 			case 'p':
 				free(path);
 				path = strdup(optarg);
+				break;
+			case 'P':
+				pfx = optarg;
 				break;
 			default:
 				fprintf(stderr, "Invalid parameters, try again with -h for help.\n");
@@ -136,6 +144,7 @@ int main(int argc, char **argv)
 		cur->start = i * increment;
 		cur->stop = cur->start + increment;
 		cur->cur = cur->start;
+		cur->pfx = pfx;
 		pthread_create(&cur->thread, NULL, stat_worker, cur);
 	}
 
