@@ -92,8 +92,8 @@ void help(void)
 
 int main(int argc, char **argv)
 {
-	int nthread, i, err;
-	unsigned long count, increment, progress;
+	int nthread = 1, i, err;
+	unsigned long count = 1000, increment, progress;
 	struct work *first = NULL, *cur;
 	char *path = get_current_dir_name();
 	char *pfx = "file-";
