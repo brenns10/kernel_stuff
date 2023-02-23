@@ -9,9 +9,11 @@
 #include <stdbool.h>
 #include <assert.h>
 
+#include <byteswap.h>
 #include <getopt.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <inttypes.h>
 
 #include <elf.h>
 
@@ -19,12 +21,79 @@ bool verbose = false;
 
 #define pr_info(...) do { if (verbose) printf(__VA_ARGS__); } while (0)
 
-struct elf_notehdr {
-	uint32_t namesz;
-	uint32_t descsz;
-	uint32_t type;
-	char name[0];
+#define max(a, b) ((a) < (b) ? (b) : (a))
+
+/*
+ * libelf doesn't have support to do editing like this, so we need to roll our
+ * own "generic elf" support.
+ */
+struct elfinfo {
+	int endian;  /* ELFDATA2LSB or ELFDATA2MSB */
+	int bits;    /* ELFCLASS64 or ELFCLASS32 */
 };
+
+#if defined(__BYTE_ORDER__)&&(__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
+#define platform_endian() ELFDATA2MSB
+#elif defined(__BYTE_ORDER__)&&(__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__)
+#define platform_endian() ELFDATA2LSB
+#else
+#error "Cannot determine platform endianness"
+#endif
+
+/*
+ * Read a field from an ELF structure in a "generic" way. This only works for
+ * fields that are actually the same size in Elf64 and Elf32.
+ */
+#define getfield(info, ptr_, typ, field, inttype, bswapmethod)			\
+	({									\
+		inttype _result;						\
+		if (info->bits == ELFCLASS64) {				\
+			Elf64_ ## typ *ptr = (Elf64_ ## typ *)ptr_;		\
+			_result = ptr->field;					\
+		} else if (info->bits == ELFCLASS32) {				\
+			Elf32_ ## typ *ptr = (Elf32_ ## typ *)ptr_;		\
+			_result = ptr->field;					\
+		} else {							\
+			fprintf(stderr, "Invalid ELF class: %d\n", info->bits); \
+			exit(EXIT_FAILURE);					\
+		}								\
+		if (info->endian != platform_endian())				\
+			_result = bswapmethod(_result);			\
+		_result;							\
+	})
+
+#define getfield16(info, ptr, typ, field)		\
+	getfield(info, ptr, typ, field, uint16_t, bswap_16)
+#define getfield32(info, ptr, typ, field)		\
+	getfield(info, ptr, typ, field, uint32_t, bswap_32)
+#define getfield64(info, ptr, typ, field)		\
+	getfield(info, ptr, typ, field, uint64_t, bswap_64)
+
+/*
+ * Read an ELF "offset" or "address" field whose type size depends on the ELF
+ * class.
+ */
+#define getaddr(info, ptr_, typ, field)			\
+	({									\
+		uint64_t _result;						\
+		uint32_t _result32;						\
+		if (info->bits == ELFCLASS64) {				\
+			Elf64_ ## typ *ptr = (Elf64_ ## typ *)ptr_;		\
+			_result = ptr->field;					\
+			if (info->endian != platform_endian())			\
+				_result = bswap_64(_result);			\
+		} else if (info->bits == ELFCLASS32) {				\
+			Elf32_ ## typ *ptr = (Elf32_ ## typ *)ptr_;		\
+			_result32 = ptr->field;				\
+			if (info->endian != platform_endian())			\
+				_result32 = bswap_32(_result);			\
+			_result = _result32;					\
+		} else {							\
+			fprintf(stderr, "Invalid ELF class: %d\n", info->bits); \
+			exit(EXIT_FAILURE);					\
+		}								\
+		_result;							\
+	})
 
 static size_t pad4(size_t val)
 {
@@ -33,15 +102,14 @@ static size_t pad4(size_t val)
 	return val;
 }
 
-static char *note_desc(struct elf_notehdr *nhdr)
+static char *note_desc(void *nhdr, uint16_t namesz)
 {
-	return &nhdr->name[pad4(nhdr->namesz)];
+	return nhdr + sizeof(Elf64_Nhdr) + pad4(namesz);
 }
 
-static struct elf_notehdr *next_note(struct elf_notehdr *nhdr)
+static struct elf_notehdr *next_note(void *nhdr, uint16_t namesz, uint16_t descsz)
 {
-	return (struct elf_notehdr *)&nhdr->name[
-		pad4(nhdr->namesz) + pad4(nhdr->descsz)];
+	return nhdr + sizeof(Elf64_Nhdr) + pad4(namesz) + pad4(descsz);
 }
 
 static bool end_notes(void *start, size_t len, void *ptr)
@@ -110,7 +178,7 @@ static void *fetch_data(int fd, uint64_t offset, size_t len)
 	void *data;
 
 	if (lseek(fd, offset, SEEK_SET) == (loff_t) -1) {
-		fprintf(stderr, "error seeking to notes location 0x%lx\n", offset);
+		fprintf(stderr, "error seeking to notes location %"PRIu64"\n", offset);
 		perror("lseek");
 		return NULL;
 	}
@@ -126,67 +194,81 @@ static void *fetch_data(int fd, uint64_t offset, size_t len)
 	return data;
 }
 
-static int find_buildid(int fd, uint64_t offset, size_t len, struct buildid_info *info_out)
+static int find_buildid(int fd, struct elfinfo *info, uint64_t offset, size_t len,
+			struct buildid_info *info_out)
 {
 	void *data = fetch_data(fd, offset, len);
-	struct elf_notehdr *nhdr;
+	void *nhdr;
 	if (!data)
 		return -1;
 
 	nhdr = data;
 	while (!end_notes(data, len, nhdr)) {
-		if ((strcmp("GNU", nhdr->name) == 0) &&
-		    (nhdr->type == NT_GNU_BUILD_ID)) {
-			assert(nhdr->descsz == BUILDID_SIZE);
+		char *name = nhdr + sizeof(Elf64_Nhdr); /* Note: same structure size */
+		uint32_t descsz = getfield32(info, nhdr, Nhdr, n_descsz);
+		uint32_t namesz = getfield32(info, nhdr, Nhdr, n_namesz);
+		uint32_t type = getfield32(info, nhdr, Nhdr, n_type);
+		if ((strcmp("GNU", name) == 0) &&
+		    (type == NT_GNU_BUILD_ID)) {
+			assert(descsz == BUILDID_SIZE);
 
-			size_t desc_offset_in_sect = (void *)note_desc(nhdr) - data;
+			size_t desc_offset_in_sect = (void *)note_desc(nhdr, namesz) - data;
 			info_out->data_offset = offset + desc_offset_in_sect;
 			info_out->bytes = malloc(BUILDID_SIZE);
-			memcpy(info_out->bytes, note_desc(nhdr), BUILDID_SIZE);
+			memcpy(info_out->bytes, note_desc(nhdr, namesz), BUILDID_SIZE);
 			info_out->hex = to_hex(info_out->bytes, BUILDID_SIZE);
 			free(data);
 			return 1;
 		}
-		nhdr = next_note(nhdr);
+		nhdr = next_note(nhdr, namesz, descsz);
 	}
 	free(data);
 	return 0;
 }
 
-static int find_notes_phdr(Elf64_Ehdr *ehdr, void *entries, int start,
+static int find_notes_phdr(void *entries, struct elfinfo *info, int start,
+			   uint16_t e_phnum, uint16_t e_phentsize,
 			   uint64_t *offset_out, uint64_t *size_out)
 {
-	for (int i = start; i < ehdr->e_phnum; i++) {
+	for (int i = start; i < e_phnum; i++) {
 		/* Program header size may not match Elf64_Phdr, do it manually */
-		Elf64_Phdr *phdr = entries + i * ehdr->e_phentsize;
-		if (phdr->p_type != PT_NOTE)
+		void *phdr = entries + i * e_phentsize;
+
+		uint32_t p_type = getfield32(info, phdr, Phdr, p_type);
+		if (p_type != PT_NOTE)
 			continue;
 
-		*offset_out = phdr->p_offset;
-		*size_out = phdr->p_filesz;
+		*offset_out = getaddr(info, phdr, Phdr, p_offset);
+		*size_out = getaddr(info, phdr, Phdr, p_filesz);
 		return i;
 	}
 	return -1;
 }
 
-static int find_buildid_phdr(int fd, Elf64_Ehdr *ehdr, struct buildid_info *info_out)
+static int find_buildid_phdr(int fd, struct elfinfo *info, void *ehdr,
+			     struct buildid_info *info_out)
 {
 	void *phdr;
 	int start = 0;
 	uint64_t offset, size;
 	int rv;
 
-	if (!ehdr->e_phnum) {
+	uint16_t e_phnum = getfield16(info, ehdr, Ehdr, e_phnum);
+	uint64_t e_phoff = getaddr(info, ehdr, Ehdr, e_phoff);
+	uint16_t e_phentsize = getfield16(info, ehdr, Ehdr, e_phentsize);
+
+	if (!e_phnum) {
 		pr_info("ELF file has no program header\n");
 		return 0;
 	}
-	phdr = fetch_data(fd, ehdr->e_phoff, ehdr->e_phnum * ehdr->e_phentsize);
+	phdr = fetch_data(fd, e_phoff, e_phnum * e_phentsize);
 	if (!phdr)
 		return -1;
 
-	while ((start = find_notes_phdr(ehdr, phdr, start, &offset, &size)) >= 0) {
+	while ((start = find_notes_phdr(phdr, info, start, e_phnum,
+					e_phentsize, &offset, &size)) >= 0) {
 		pr_info("Found NOTES section in program header index %d\n", start);
-		rv = find_buildid(fd, offset, size, info_out);
+		rv = find_buildid(fd, info, offset, size, info_out);
 
 		/*
 		 * Continue searching on 0 (not found). Otherwise, either we
@@ -205,40 +287,47 @@ out:
 	return rv;
 }
 
-static int find_notes_shdr(Elf64_Ehdr *ehdr, void *entries, int start,
+static int find_notes_shdr(void *entries, struct elfinfo *info, int start,
+			   uint16_t e_shnum, uint16_t e_shentsize,
 			   uint64_t *offset_out, uint64_t *size_out)
 {
-	for (int i = start; i < ehdr->e_shnum; i++) {
-		/* Program header size may not match Elf64_Shdr, do it manually */
-		Elf64_Shdr *shdr = entries + i * ehdr->e_shentsize;
-		if (shdr->sh_type != SHT_NOTE)
+	for (int i = start; i < e_shnum; i++) {
+		void *shdr = entries + i * e_shentsize;
+		uint32_t sh_type = getfield32(info, shdr, Shdr, sh_type);
+		if (sh_type != SHT_NOTE)
 			continue;
 
-		*offset_out = shdr->sh_offset;
-		*size_out = shdr->sh_size;
+		*offset_out = getaddr(info, shdr, Shdr, sh_offset);
+		*size_out = getaddr(info, shdr, Shdr, sh_size);
 		return i;
 	}
 	return -1;
 }
 
-static int find_buildid_shdr(int fd, Elf64_Ehdr *ehdr, struct buildid_info *info_out)
+static int find_buildid_shdr(int fd, struct elfinfo *info, void *ehdr,
+			     struct buildid_info *info_out)
 {
 	void *shdr;
 	int start = 0;
 	uint64_t offset, size;
 	int rv;
 
-	if (!ehdr->e_shnum) {
+	uint16_t e_shnum = getfield16(info, ehdr, Ehdr, e_shnum);
+	uint64_t e_shoff = getaddr(info, ehdr, Ehdr, e_shoff);
+	uint16_t e_shentsize = getfield16(info, ehdr, Ehdr, e_shentsize);
+
+	if (!e_shnum) {
 		pr_info("ELF file has no section header\n");
 		return 0;
 	}
-	shdr = fetch_data(fd, ehdr->e_shoff, ehdr->e_shnum * ehdr->e_shentsize);
+	shdr = fetch_data(fd, e_shoff, e_shnum * e_shentsize);
 	if (!shdr)
 		return -1;
 
-	while ((start = find_notes_shdr(ehdr, shdr, start, &offset, &size)) >= 0) {
+	while ((start = find_notes_shdr(shdr, info, start, e_shnum,
+					e_shentsize, &offset, &size)) >= 0) {
 		pr_info("Found NOTES section in section header index %d\n", start);
-		rv = find_buildid(fd, offset, size, info_out);
+		rv = find_buildid(fd, info, offset, size, info_out);
 
 		/*
 		 * Continue searching on 0 (not found). Otherwise, either we
@@ -260,54 +349,56 @@ out:
 static int find_build_id(int fd, struct buildid_info *info_out)
 {
 	int rv;
-	Elf64_Ehdr ehdr;
+	char ehdrbuf[max(sizeof(Elf64_Ehdr), sizeof(Elf32_Ehdr))];
+	Elf64_Ehdr *ehdr64 = (Elf64_Ehdr *)&ehdrbuf;
+	struct elfinfo info;
 
-	if ((rv = read(fd, &ehdr, sizeof(ehdr))) != sizeof(ehdr)) {
+	if ((rv = read(fd, ehdrbuf, sizeof(ehdrbuf))) != sizeof(ehdrbuf)) {
 		fprintf(stderr, "read ELF header failed (%d)\n", rv);
 		if (rv < 0)
 			perror("read");
 		return -1;
 	}
 
-	if (!(ehdr.e_ident[0] == ELFMAG0 && ehdr.e_ident[1] == ELFMAG1 &&
-	      ehdr.e_ident[2] == ELFMAG2 && ehdr.e_ident[3] == ELFMAG3)) {
+	/*
+	 * To simplify things, we can access the first few bytes using Elf64
+	 * structure. The definitions are the same.
+	 */
+	if (!(ehdr64->e_ident[0] == ELFMAG0 && ehdr64->e_ident[1] == ELFMAG1 &&
+	      ehdr64->e_ident[2] == ELFMAG2 && ehdr64->e_ident[3] == ELFMAG3)) {
 		fprintf(stderr, "error: not an ELF file\n");
 		return -1;
 	}
+
 	/*
-	 * Since we're going to be disregarding libelf later and directly
-	 * editing the bits and bytes of the file, let's enforce our assumption
-	 * that we're doing 64 bit, little endian, as is the standard of AMD64.
-	 *
-	 * Support for other formats is left as an exercise for the reader ;)
+	 * We can handle 32 and 64 bits, and big/little endian!
+	 * But it's helpful to verify and log this information.
 	 */
-	if (ehdr.e_ident[EI_CLASS] != ELFCLASS64) {
-		fprintf(stderr, "error: we only support ELF 64\n");
+	info.bits = ehdr64->e_ident[EI_CLASS];
+	if (info.bits == ELFCLASS32 || info.bits == ELFCLASS64) {
+		pr_info("Input is a %d-bit ELF\n", info.bits == ELFCLASS32 ? 32 : 64);
+	} else {
+		fprintf(stderr, "Error: unsupported elf class: %d\n", info.bits);
 		return -1;
 	}
-	if (ehdr.e_ident[EI_DATA] != ELFDATA2LSB) {
-		fprintf(stderr, "we only support little endian\n");
+	info.endian = ehdr64->e_ident[EI_DATA];
+	if (info.endian == ELFDATA2LSB || info.endian == ELFDATA2MSB) {
+		pr_info("Input is %s-endian\n", info.endian == ELFDATA2LSB ? "little" : "big");
+	} else {
+		fprintf(stderr, "Error: unsupported elf data encoding: %d\n", info.endian);
 		return -1;
 	}
 
 	/*
-	 * As far as I can tell, you can find a program header OR section header
-	 * which specifies an ELF note - see PT_NOTE and SHT_NOTE respectively.
-	 * I've only ever seen the build ID included in a section, which has the
-	 * name .note.gnu.build-id.
-	 *
-	 * However, I originally wrote some of my ELF wrangling code for linux
-	 * kernel core dumps, and those have a "vmcoreinfo" note inside a
-	 * segment of type PT_NOTE in the program header - which is not
-	 * mentioned in the section header.
-	 *
-	 * So I have code for both cases, though I doubt that they are needed.
+	 * Notes are legal to be declared in program headers or section headers.
+	 * In manual tests, we have found NOTES declared in either place. So, we
+	 * should support both.
 	 */
-	rv = find_buildid_phdr(fd, &ehdr, info_out);
+	rv = find_buildid_phdr(fd, &info, (void *)ehdrbuf, info_out);
 	if (rv != 0)
 		return rv;
 
-	return find_buildid_shdr(fd, &ehdr, info_out);
+	return find_buildid_shdr(fd, &info, (void *)ehdrbuf, info_out);
 }
 
 static int write_new_buildid(int fd, size_t offset, uint8_t *data)
