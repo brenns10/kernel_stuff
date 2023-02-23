@@ -1,6 +1,7 @@
 /*
  * Edit the "Build ID" note of an ELF file.
  */
+#define _GNU_SOURCE
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,10 +9,15 @@
 #include <stdbool.h>
 #include <assert.h>
 
+#include <getopt.h>
 #include <unistd.h>
 #include <fcntl.h>
 
 #include <elf.h>
+
+bool verbose = false;
+
+#define pr_info(...) do { if (verbose) printf(__VA_ARGS__); } while (0)
 
 struct elf_notehdr {
 	uint32_t namesz;
@@ -171,7 +177,7 @@ static int find_buildid_phdr(int fd, Elf64_Ehdr *ehdr, struct buildid_info *info
 	int rv;
 
 	if (!ehdr->e_phnum) {
-		fprintf(stderr, "ELF file has no program header\n");
+		pr_info("ELF file has no program header\n");
 		return 0;
 	}
 	phdr = fetch_data(fd, ehdr->e_phoff, ehdr->e_phnum * ehdr->e_phentsize);
@@ -179,7 +185,7 @@ static int find_buildid_phdr(int fd, Elf64_Ehdr *ehdr, struct buildid_info *info
 		return -1;
 
 	while ((start = find_notes_phdr(ehdr, phdr, start, &offset, &size)) >= 0) {
-		fprintf(stderr, "Found NOTES section in program header index %d\n", start);
+		pr_info("Found NOTES section in program header index %d\n", start);
 		rv = find_buildid(fd, offset, size, info_out);
 
 		/*
@@ -189,10 +195,10 @@ static int find_buildid_phdr(int fd, Elf64_Ehdr *ehdr, struct buildid_info *info
 		if (rv != 0)
 			goto out;
 
-		fprintf(stderr, "Build ID not present here, continuing...\n");
+		pr_info("Build ID not present here, continuing...\n");
 		start += 1; /* continue from next */
 	}
-	fprintf(stderr, "Program header did not contain NOTES segment with Build ID note.\n");
+	pr_info("Program header did not contain NOTES segment with Build ID note.\n");
 
 out:
 	free(phdr);
@@ -223,7 +229,7 @@ static int find_buildid_shdr(int fd, Elf64_Ehdr *ehdr, struct buildid_info *info
 	int rv;
 
 	if (!ehdr->e_shnum) {
-		fprintf(stderr, "ELF file has no section header\n");
+		pr_info("ELF file has no section header\n");
 		return 0;
 	}
 	shdr = fetch_data(fd, ehdr->e_shoff, ehdr->e_shnum * ehdr->e_shentsize);
@@ -231,7 +237,7 @@ static int find_buildid_shdr(int fd, Elf64_Ehdr *ehdr, struct buildid_info *info
 		return -1;
 
 	while ((start = find_notes_shdr(ehdr, shdr, start, &offset, &size)) >= 0) {
-		fprintf(stderr, "Found NOTES section in section header index %d\n", start);
+		pr_info("Found NOTES section in section header index %d\n", start);
 		rv = find_buildid(fd, offset, size, info_out);
 
 		/*
@@ -241,10 +247,10 @@ static int find_buildid_shdr(int fd, Elf64_Ehdr *ehdr, struct buildid_info *info
 		if (rv != 0)
 			goto out;
 
-		fprintf(stderr, "Build ID not present here, continuing...\n");
+		pr_info("Build ID not present here, continuing...\n");
 		start += 1; /* continue from next */
 	}
-	fprintf(stderr, "Section header did not contain NOTES segment with Build ID note.\n");
+	pr_info("Section header did not contain NOTES segment with Build ID note.\n");
 
 out:
 	free(shdr);
@@ -266,7 +272,6 @@ static int find_build_id(int fd, struct buildid_info *info_out)
 	if (!(ehdr.e_ident[0] == ELFMAG0 && ehdr.e_ident[1] == ELFMAG1 &&
 	      ehdr.e_ident[2] == ELFMAG2 && ehdr.e_ident[3] == ELFMAG3)) {
 		fprintf(stderr, "error: not an ELF file\n");
-		printf("%d %d %d %d\n", ehdr.e_ident[0],ehdr.e_ident[1],ehdr.e_ident[2],ehdr.e_ident[3]);
 		return -1;
 	}
 	/*
@@ -319,28 +324,81 @@ static int write_new_buildid(int fd, size_t offset, uint8_t *data)
 	return 0;
 }
 
+void help(void)
+{
+	puts(
+		"usage: editbuildid [-n BUILD-ID] [-p] [-v] [-h] ELF-FILE\n"
+		"\n"
+		"Find the build ID of an ELF file and either print it (-p) and exit, or\n"
+		"overwrite it with the given value (-n BUILD-ID). The -p and -n options\n"
+		"are mutually exclusive and exactly one must be specified.\n"
+		"\n"
+		"Options:\n"
+		"  -n, --new BUILD-ID   specify the new BUILD-ID value\n"
+		"  -p, --print          print the current build ID value and exit\n"
+		"  -v, --verbose        print informational messages\n"
+		"  -h, --help           print this message and exit"
+	);
+	exit(EXIT_SUCCESS);
+}
+
 int main(int argc, char **argv)
 {
 	struct buildid_info info;
-	char *newid_hex;
-	uint8_t *newid_bytes;
-	int elf_fd, rv = 0;
+	char *newid_hex = NULL;
+	char *elf_file = NULL;
+	uint8_t *newid_bytes = NULL;
+	int elf_fd, opt, rv = 0;
+	bool print = false;
 
-	if (argc != 3) {
-		fprintf(stderr, " usage : %s ELF-FILE BUILD-ID", argv[0]);
+	const char *shopt = "n:vhp";
+	static struct option lopt[] = {
+		{"--new",     required_argument, NULL, 'n'},
+		{"--verbose", no_argument,       NULL, 'v'},
+		{"--help",    no_argument,       NULL, 'h'},
+		{"--print",   no_argument,       NULL, 'p'},
+	};
+	while ((opt = getopt_long(argc, argv, shopt, lopt, NULL)) != -1) {
+		switch (opt) {
+			case 'h':
+			case '?':
+				help();
+				break;
+			case 'v':
+				verbose = true;
+				break;
+			case 'p':
+				print = true;
+				break;
+			case 'n':
+				newid_hex = optarg;
+				if (strlen(newid_hex) != 40) {
+					fprintf(stderr, "invalid build id\n");
+					return -1;
+				}
+				newid_bytes = from_hex(newid_hex, 40);
+				break;
+		}
+	}
+	argv += optind;
+	argc -= optind;
+
+	if (argc != 1) {
+		fprintf(stderr, "error: require exactly one argument (ELF-FILE)\n");
 		return -1;
 	}
-	newid_hex = argv[2];
-	if (strlen(newid_hex) != 40) {
-		fprintf(stderr, "invalid build id\n");
+	if (print && newid_hex) {
+		fprintf(stderr, "error: --print and --new are mutually exclusive\n");
+		return -1;
+	} else if (!(print || newid_hex)) {
+		fprintf(stderr, "error: either --print or --new should be specified\n");
 		return -1;
 	}
-	newid_bytes = from_hex(newid_hex, 40);
-
+	elf_file = argv[0];
 	memset(&info, 0, sizeof(info));
 
-	if ((elf_fd = open(argv[1], O_RDWR, 0)) < 0) {
-		fprintf(stderr, "failed to open %s to read\n", argv[1]);
+	if ((elf_fd = open(elf_file, O_RDWR, 0)) < 0) {
+		fprintf(stderr, "failed to open %s to read\n", elf_file);
 		perror("open");
 		return 1;
 	}
@@ -351,10 +409,14 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Sorry, couldn't find Build ID in that ELF file.\n");
 		goto out;
 	}
-	printf("Found old build ID: %s\n", info.hex);
+	if (print) {
+		printf("%s\n", info.hex);
+		goto out;
+	}
+	pr_info("Found old build ID: %s\n", info.hex);
 	if (write_new_buildid(elf_fd, info.data_offset, newid_bytes) < 0)
 		goto out;
-	printf("Wrote new build ID: %s\n", newid_hex);
+	pr_info("Wrote new build ID: %s\n", newid_hex);
 out:
 	free(newid_bytes);
 	free(info.bytes);
