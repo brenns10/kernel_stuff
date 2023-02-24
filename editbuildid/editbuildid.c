@@ -500,12 +500,13 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Sorry, couldn't find Build ID in that ELF file.\n");
 		goto out;
 	}
+	rv = 0;
 	if (print) {
 		printf("%s\n", info.hex);
 		goto out;
 	}
 	pr_info("Found old build ID: %s\n", info.hex);
-	if (write_new_buildid(elf_fd, info.data_offset, newid_bytes) < 0)
+	if ((rv = write_new_buildid(elf_fd, info.data_offset, newid_bytes)) < 0)
 		goto out;
 	pr_info("Wrote new build ID: %s\n", newid_hex);
 out:
