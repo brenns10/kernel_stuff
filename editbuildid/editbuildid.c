@@ -107,7 +107,7 @@ static char *note_desc(void *nhdr, uint16_t namesz)
 	return nhdr + sizeof(Elf64_Nhdr) + pad4(namesz);
 }
 
-static struct elf_notehdr *next_note(void *nhdr, uint16_t namesz, uint16_t descsz)
+static void *next_note(void *nhdr, uint16_t namesz, uint16_t descsz)
 {
 	return nhdr + sizeof(Elf64_Nhdr) + pad4(namesz) + pad4(descsz);
 }
