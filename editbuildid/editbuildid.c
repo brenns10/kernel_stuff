@@ -19,7 +19,7 @@
 
 bool verbose = false;
 
-#define pr_info(...) do { if (verbose) printf(__VA_ARGS__); } while (0)
+#define pr_info(...) do { if (verbose) fprintf(stderr, __VA_ARGS__); } while (0)
 
 #define max(a, b) ((a) < (b) ? (b) : (a))
 
