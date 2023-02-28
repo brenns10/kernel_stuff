@@ -17,7 +17,7 @@
 
 #include <elf.h>
 
-bool verbose = false;
+bool verbose;
 
 #define pr_info(...) do { if (verbose) fprintf(stderr, __VA_ARGS__); } while (0)
 
@@ -32,9 +32,9 @@ struct elfinfo {
 	int bits;    /* ELFCLASS64 or ELFCLASS32 */
 };
 
-#if defined(__BYTE_ORDER__)&&(__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
+#if defined(__BYTE_ORDER__) && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
 #define platform_endian() ELFDATA2MSB
-#elif defined(__BYTE_ORDER__)&&(__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__)
+#elif defined(__BYTE_ORDER__) && (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__)
 #define platform_endian() ELFDATA2LSB
 #else
 #error "Cannot determine platform endianness"
@@ -102,7 +102,7 @@ static size_t pad4(size_t val)
 	return val;
 }
 
-static char *note_desc(void *nhdr, uint16_t namesz)
+static void *note_desc(void *nhdr, uint16_t namesz)
 {
 	return nhdr + sizeof(Elf64_Nhdr) + pad4(namesz);
 }
@@ -126,7 +126,7 @@ static inline char nibble_to_hex(uint8_t input)
 	assert(0);
 }
 
-static inline uint8_t hex_to_nibble(char input)
+static inline uint8_t hex_to_nibble(char input, bool *error)
 {
 	if (input >= '0' && input <= '9')
 		return input - '0';
@@ -134,14 +134,18 @@ static inline uint8_t hex_to_nibble(char input)
 		return input - 'a' + 10;
 	else if (input >= 'A' && input <= 'F')
 		return input - 'A' + 10;
-	assert(0);
+	*error = true;
+	return 0;
 }
 
 static char *to_hex(uint8_t *data, int size)
 {
+	int i;
 	char *hex_data = calloc(1, size * 2 + 1);
-	for (int i = 0; i < size; i++) {
+
+	for (i = 0; i < size; i++) {
 		char byte = data[i];
+
 		hex_data[2 * i] = nibble_to_hex((byte & 0xF0) >> 4);
 		hex_data[2 * i + 1] = nibble_to_hex((byte & 0xF));
 	}
@@ -151,24 +155,38 @@ static char *to_hex(uint8_t *data, int size)
 static uint8_t *from_hex(char *hex_data, int hex_size)
 {
 	uint8_t *data;
-	int size;
+	int size, i;
+
 	assert(hex_size % 2 == 0);
 	size = hex_size / 2;
 	data = calloc(1, size);
-	for (int i = 0; i < size; i++) {
+	for (i = 0; i < size; i++) {
 		char byte = 0;
-		byte |= hex_to_nibble(hex_data[2 * i]) << 4;
-		byte |= hex_to_nibble(hex_data[2 * i + 1]);
+		bool error = false;
+
+		byte |= hex_to_nibble(hex_data[2 * i], &error) << 4;
+		byte |= hex_to_nibble(hex_data[2 * i + 1], &error);
 		data[i] = byte;
+
+		if (error) {
+			free(data);
+			return NULL;
+		}
 	}
 	return data;
 }
 
-#define BUILDID_SIZE 20
+/*
+ * There is no defined size for a build ID, just common ones: 20 bytes / 160
+ * bits for a SHA-1 ID, and 16 bytes / 128 bits for MD5 or UUID based IDs.
+ * This maximum is established merely as a reasonable upper bound for safety
+ * checking our inputs: 512 bytes would be a really large build ID.
+ */
+#define MAX_BUILDID_SIZE 512
 
 struct buildid_info {
 	uint64_t data_offset;
-	uint8_t *bytes;
+	size_t bytes_size;
 	char *hex;
 };
 
@@ -184,7 +202,8 @@ static void *fetch_data(int fd, uint64_t offset, size_t len)
 	}
 
 	data = calloc(len, 1);
-	if ((rv = read(fd, data, len)) != len) {
+	rv = read(fd, data, len);
+	if (rv != len) {
 		fprintf(stderr, "error: read notes data failed (%d)\n", rv);
 		if (rv < 0)
 			perror("read");
@@ -199,6 +218,7 @@ static int find_buildid(int fd, struct elfinfo *info, uint64_t offset, size_t le
 {
 	void *data = fetch_data(fd, offset, len);
 	void *nhdr;
+
 	if (!data)
 		return -1;
 
@@ -208,15 +228,25 @@ static int find_buildid(int fd, struct elfinfo *info, uint64_t offset, size_t le
 		uint32_t descsz = getfield32(info, nhdr, Nhdr, n_descsz);
 		uint32_t namesz = getfield32(info, nhdr, Nhdr, n_namesz);
 		uint32_t type = getfield32(info, nhdr, Nhdr, n_type);
+
 		if ((strcmp("GNU", name) == 0) &&
 		    (type == NT_GNU_BUILD_ID)) {
-			assert(descsz == BUILDID_SIZE);
+			size_t desc_offset_in_sect;
 
-			size_t desc_offset_in_sect = (void *)note_desc(nhdr, namesz) - data;
+			/* This is just a sanity-check, it should never be hit */
+			if (descsz > MAX_BUILDID_SIZE) {
+				fprintf(stderr, "error: Found build ID of large size %"
+					PRIu32", skipping\n", descsz);
+				continue;
+			}
+			if (descsz != 20 && descsz != 16)
+				pr_info("warning: non-standard build ID size %"
+					PRIu32", continuing anyway\n", descsz);
+
+			desc_offset_in_sect = (void *)note_desc(nhdr, namesz) - data;
 			info_out->data_offset = offset + desc_offset_in_sect;
-			info_out->bytes = malloc(BUILDID_SIZE);
-			memcpy(info_out->bytes, note_desc(nhdr, namesz), BUILDID_SIZE);
-			info_out->hex = to_hex(info_out->bytes, BUILDID_SIZE);
+			info_out->bytes_size = (size_t) descsz;
+			info_out->hex = to_hex(note_desc(nhdr, namesz), descsz);
 			free(data);
 			return 1;
 		}
@@ -230,11 +260,13 @@ static int find_notes_phdr(void *entries, struct elfinfo *info, int start,
 			   uint16_t e_phnum, uint16_t e_phentsize,
 			   uint64_t *offset_out, uint64_t *size_out)
 {
-	for (int i = start; i < e_phnum; i++) {
+	int i;
+
+	for (i = start; i < e_phnum; i++) {
 		/* Program header size may not match Elf64_Phdr, do it manually */
 		void *phdr = entries + i * e_phentsize;
-
 		uint32_t p_type = getfield32(info, phdr, Phdr, p_type);
+
 		if (p_type != PT_NOTE)
 			continue;
 
@@ -291,9 +323,12 @@ static int find_notes_shdr(void *entries, struct elfinfo *info, int start,
 			   uint16_t e_shnum, uint16_t e_shentsize,
 			   uint64_t *offset_out, uint64_t *size_out)
 {
-	for (int i = start; i < e_shnum; i++) {
+	int i;
+
+	for (i = start; i < e_shnum; i++) {
 		void *shdr = entries + i * e_shentsize;
 		uint32_t sh_type = getfield32(info, shdr, Shdr, sh_type);
+
 		if (sh_type != SHT_NOTE)
 			continue;
 
@@ -353,7 +388,8 @@ static int find_build_id(int fd, struct buildid_info *info_out)
 	Elf64_Ehdr *ehdr64 = (Elf64_Ehdr *)&ehdrbuf;
 	struct elfinfo info;
 
-	if ((rv = read(fd, ehdrbuf, sizeof(ehdrbuf))) != sizeof(ehdrbuf)) {
+	rv = read(fd, ehdrbuf, sizeof(ehdrbuf));
+	if (rv != sizeof(ehdrbuf)) {
 		fprintf(stderr, "read ELF header failed (%d)\n", rv);
 		if (rv < 0)
 			perror("read");
@@ -401,7 +437,7 @@ static int find_build_id(int fd, struct buildid_info *info_out)
 	return find_buildid_shdr(fd, &info, (void *)ehdrbuf, info_out);
 }
 
-static int write_new_buildid(int fd, size_t offset, uint8_t *data)
+static int write_new_buildid(int fd, size_t offset, uint8_t *data, size_t data_size)
 {
 	if (lseek(fd, offset, SEEK_SET) < 0) {
 		fprintf(stderr, "error: seeking to build id bytes\n");
@@ -409,9 +445,9 @@ static int write_new_buildid(int fd, size_t offset, uint8_t *data)
 		return -1;
 	}
 
-	if (write(fd, data, BUILDID_SIZE) < 0) {
+	if (write(fd, data, data_size) < 0)
 		perror("write");
-	}
+
 	return 0;
 }
 
@@ -439,6 +475,7 @@ int main(int argc, char **argv)
 	char *newid_hex = NULL;
 	char *elf_file = NULL;
 	uint8_t *newid_bytes = NULL;
+	size_t newid_len = 0;
 	int elf_fd, opt, rv = 0;
 	bool print = false;
 
@@ -451,24 +488,19 @@ int main(int argc, char **argv)
 	};
 	while ((opt = getopt_long(argc, argv, shopt, lopt, NULL)) != -1) {
 		switch (opt) {
-			case 'h':
-			case '?':
-				help();
-				break;
-			case 'v':
-				verbose = true;
-				break;
-			case 'p':
-				print = true;
-				break;
-			case 'n':
-				newid_hex = optarg;
-				if (strlen(newid_hex) != 40) {
-					fprintf(stderr, "invalid build id\n");
-					return -1;
-				}
-				newid_bytes = from_hex(newid_hex, 40);
-				break;
+		case 'h':
+		case '?':
+			help();
+			break;
+		case 'v':
+			verbose = true;
+			break;
+		case 'p':
+			print = true;
+			break;
+		case 'n':
+			newid_hex = optarg;
+			break;
 		}
 	}
 	argv += optind;
@@ -476,19 +508,20 @@ int main(int argc, char **argv)
 
 	if (argc != 1) {
 		fprintf(stderr, "error: require exactly one argument (ELF-FILE)\n");
-		return -1;
+		return 1;
 	}
 	if (print && newid_hex) {
 		fprintf(stderr, "error: --print and --new are mutually exclusive\n");
-		return -1;
+		return 1;
 	} else if (!(print || newid_hex)) {
 		fprintf(stderr, "error: either --print or --new should be specified\n");
-		return -1;
+		return 1;
 	}
 	elf_file = argv[0];
 	memset(&info, 0, sizeof(info));
 
-	if ((elf_fd = open(elf_file, O_RDWR, 0)) < 0) {
+	elf_fd = open(elf_file, O_RDWR, 0);
+	if (elf_fd < 0) {
 		fprintf(stderr, "failed to open %s to read\n", elf_file);
 		perror("open");
 		return 1;
@@ -506,12 +539,28 @@ int main(int argc, char **argv)
 		goto out;
 	}
 	pr_info("Found old build ID: %s\n", info.hex);
-	if ((rv = write_new_buildid(elf_fd, info.data_offset, newid_bytes)) < 0)
+	newid_len = strlen(newid_hex);
+	if (newid_len % 2 == 0)
+		newid_bytes = from_hex(newid_hex, newid_len);
+	if (!newid_bytes) {
+		fprintf(stderr, "error: invalid build ID \"%s\"\n", newid_hex);
+		fprintf(stderr, "Expected even-length hex string\n");
+		rv = 1;
+		goto out;
+	}
+	if (newid_len / 2 != info.bytes_size) {
+		fprintf(stderr, "error: the existing build ID has size %zu but the "
+		        "new build ID has size %zu\n", info.bytes_size, newid_len / 2);
+		fprintf(stderr, "This tool does not support changing the build ID size\n");
+		rv = 1;
+		goto out;
+	}
+	rv = write_new_buildid(elf_fd, info.data_offset, newid_bytes, info.bytes_size);
+	if (rv < 0)
 		goto out;
 	pr_info("Wrote new build ID: %s\n", newid_hex);
 out:
 	free(newid_bytes);
-	free(info.bytes);
 	free(info.hex);
 	close(elf_fd);
 	return rv;
