@@ -2,9 +2,12 @@ Edit ELF Build-ID
 =================
 
 This quick program gives you the ability to edit the Build ID value of an
-already built ELF file. Build IDs are easy to edit, because they are always 20
-bytes, so we don't need to shift any other data in the file around, nor do we
-need to update any offsets.
+already built ELF file. Build IDs are easy to edit, because they are typically a
+fixed size (most commonly 20 bytes, but 16 byte IDs also exist), so we don't
+need to shift any other data in the file around, nor do we need to update any
+offsets. The tool doesn't support changing the size of a build ID (for example,
+you can edit a 20-byte ID to a different 20-byte value, but not to any other
+size).
 
 ```
 usage: editbuildid [-n BUILD-ID] [-p] [-v] [-h] ELF-FILE
