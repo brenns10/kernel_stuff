@@ -53,8 +53,28 @@ static int crashstash_open(struct inode *inode, struct file *filp)
 	}
 
 	/* Writers automatically clear the old contents and setup a new stash */
-	if (mode == O_WRONLY)
+	if (mode == O_WRONLY) {
 		crashstash_free();
+		/*
+		 * Put the address of the crashstash list head, and the size and
+		 * pages variables, in the kernel log. This is necessary in
+		 * order for later vmcore analysis to be able to find and
+		 * interpret the crashstash.
+		 *
+		 * Writing to the log at open-time is best, because release() is
+		 * not reliably called directly after the file is closed. These
+		 * memory addresses don't change at runtime, but we want them to
+		 * be in the log buffer when a vmcore is generated, so writing
+		 * the message just at initialization time isn't good enough: it
+		 * may be a long time between initialization and when a vmcore
+		 * is generated.
+		 *
+		 * Of course, if the file is written to a lot, we could cause
+		 * log spam, so use pr_info_ratelimited().
+		 */
+		pr_info_ratelimited("crashstash: STASH: %p SIZE: %p PAGES: %p\n",
+				    &crashstash, &size, &pages);
+	}
 	count++;
 
 out:
@@ -180,8 +200,7 @@ static int crashstash_init(void)
 	if (!pde) {
 		return -ENOENT;
 	}
-	pr_info("crashstash: successfully initialized: STASH: %p SIZE: %p PAGES: %p\n",
-		&crashstash, &size, &pages);
+	pr_info("crashstash: successfully initialized\n");
 	return 0;
 }
 
