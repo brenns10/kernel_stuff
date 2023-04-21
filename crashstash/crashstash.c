@@ -72,8 +72,8 @@ static int crashstash_open(struct inode *inode, struct file *filp)
 		 * Of course, if the file is written to a lot, we could cause
 		 * log spam, so use pr_info_ratelimited().
 		 */
-		pr_info_ratelimited("crashstash: STASH: %p SIZE: %p PAGES: %p\n",
-				    &crashstash, &size, &pages);
+		pr_info_ratelimited("crashstash: STASH: %llx SIZE: %llx PAGES: %llx\n",
+				    (u64)&crashstash, (u64)&size, (u64)&pages);
 	}
 	count++;
 
