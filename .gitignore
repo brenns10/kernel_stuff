@@ -1,0 +1,13 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+# kernel module stuff
+*.mod.c
+*.o
+*.ko
+.*.cmd
+*.mod
+Module.symvers
+modules.order
