@@ -22,6 +22,9 @@ LIST_HEAD(crashstash);
 u64 size;
 u64 pages;
 
+/* arbitrary limit of 10 MiB, writes will stop working after that */
+#define MAXSIZE (10 * 1024 * 1024)
+
 static void crashstash_free(void)
 {
 	struct page *cur, *next;
@@ -105,6 +108,18 @@ static ssize_t crashstash_write(struct file *f, const char __user *data, size_t 
 	if (*off != size) {
 		mutex_unlock(&crashstash_lock);
 		return -EINVAL;
+	}
+	/* Return ENOSPC when at capacity */
+	if (size >= MAXSIZE) {
+		mutex_unlock(&crashstash_lock);
+		return -ENOSPC;
+	}
+	/*
+	 * If the write would have us go beyond capacity, only write
+	 * up to the maximum amount of bytes.
+	 */
+	if (size + amt > MAXSIZE) {
+		amt = MAXSIZE - size;
 	}
 
 	while (amt) {
