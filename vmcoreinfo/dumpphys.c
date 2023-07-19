@@ -174,11 +174,12 @@ int main(int argc, char **argv)
 	int opt;
 	const char *shopt = "c:o:ivh";
 	static struct option lopt[] = {
-		{"--core",       required_argument, NULL, 'c'},
-		{"--output",     required_argument, NULL, 'o'},
-		{"--vmcoreinfo", no_argument,       NULL, 'i'},
-		{"--verbose",    no_argument,       NULL, 'v'},
-		{"--help",       no_argument,       NULL, 'h'},
+		{"core",       required_argument, NULL, 'c'},
+		{"output",     required_argument, NULL, 'o'},
+		{"vmcoreinfo", no_argument,       NULL, 'i'},
+		{"verbose",    no_argument,       NULL, 'v'},
+		{"help",       no_argument,       NULL, 'h'},
+		{0},
 	};
 	while ((opt = getopt_long(argc, argv, shopt, lopt, NULL)) != -1) {
 		switch (opt) {
