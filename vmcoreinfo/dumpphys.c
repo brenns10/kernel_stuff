@@ -199,7 +199,7 @@ int main(int argc, char **argv)
 					perror_fail("open vmcore");
 				break;
 			case 'o':
-				out_fd = open(optarg, O_WRONLY);
+				out_fd = open(optarg, O_WRONLY | O_CREAT);
 				if (out_fd < 0)
 					perror_fail("open output");
 				break;
