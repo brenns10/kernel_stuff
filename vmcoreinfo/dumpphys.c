@@ -91,7 +91,7 @@ int check_vmcoreinfo(void *arg, uint64_t addr, uint64_t len, uint8_t *buf)
 	return 0;
 }
 
-int for_each_present_page(kdump_ctx_t *ctx, struct memory_info *mi, page_fn fn, void *arg, bool verbose)
+int for_each_present_page(kdump_ctx_t *ctx, struct memory_info *mi, page_fn fn, void *arg, bool verbose, bool persist)
 {
 	kdump_status ks;
 	kdump_addr_t addr = 0;
@@ -123,7 +123,10 @@ int for_each_present_page(kdump_ctx_t *ctx, struct memory_info *mi, page_fn fn, 
 			size_t len = mi->page_size;
 			ks = kdump_read(ctx, KDUMP_MACHPHYSADDR, offset << mi->page_shift, buf, &len);
 			if (ks != KDUMP_OK) {
-				fail("kdump_read: %s", kdump_get_err(ctx));
+				fprintf(stderr, "kdump_read: %s\n", kdump_get_err(ctx));
+				if (!persist)
+					exit(EXIT_FAILURE);
+				continue;
 			}
 			pages_read += 1;
 			int rv = fn(arg, offset << mi->page_shift, mi->page_size - len, (uint8_t *)buf);
@@ -155,6 +158,8 @@ void help(void)
 		"  --vmcoreinfo, -i     if flag is active, searches for vmcoreinfo rather than\n"
 		"                       dumping all memory contents.\n"
 		"  --verbose, -v        prints information about progress to stderr\n"
+		"  --persist, -p        continue trying to read pages of data even after we\n"
+		"                       encounter a read error\n"
 		"  --help, -h           print this message and exit"
 	);
 	exit(EXIT_SUCCESS);
@@ -170,15 +175,17 @@ int main(int argc, char **argv)
 	int rv;
 	page_fn op = dump_page;
 	bool verbose = false;
+	bool persist = false;
 
 	int opt;
-	const char *shopt = "c:o:ivh";
+	const char *shopt = "c:o:ivhp";
 	static struct option lopt[] = {
 		{"core",       required_argument, NULL, 'c'},
 		{"output",     required_argument, NULL, 'o'},
 		{"vmcoreinfo", no_argument,       NULL, 'i'},
 		{"verbose",    no_argument,       NULL, 'v'},
 		{"help",       no_argument,       NULL, 'h'},
+		{"persist",    no_argument,       NULL, 'p'},
 		{0},
 	};
 	while ((opt = getopt_long(argc, argv, shopt, lopt, NULL)) != -1) {
@@ -201,6 +208,9 @@ int main(int argc, char **argv)
 				break;
 			case 'v':
 				verbose = true;
+				break;
+			case 'p':
+				persist = true;
 				break;
 			default:
 				fprintf(stderr, "Invalid argument\n");
@@ -226,7 +236,7 @@ int main(int argc, char **argv)
 		     kdump_get_err(ctx));
 
 	get_memory_info(ctx, &mi);
-	rv = for_each_present_page(ctx, &mi, op, &out_fd, verbose);
+	rv = for_each_present_page(ctx, &mi, op, &out_fd, verbose, persist);
 	if (rv == 0 && op == check_vmcoreinfo) {
 		fprintf(stderr, "error: could not find anything that looks like vmcoreinfo\n");
 	}
