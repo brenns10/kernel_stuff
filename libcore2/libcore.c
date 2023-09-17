@@ -125,6 +125,7 @@ static kcore_status_t read_proc_kallsyms(kcore_t *ctx, struct kallsyms *ks)
 	size_t line_number = 1;
 	size_t alloc = 0;
 	kcore_status_t st;
+	size_t sballoc = 0, sbsize = 0;
 	FILE *fp = fopen("/proc/kallsyms", "r");
 	if (!fp)
 		return set_os_err(ctx);
@@ -136,6 +137,7 @@ static kcore_status_t read_proc_kallsyms(kcore_t *ctx, struct kallsyms *ks)
 		char *name, *addr_str, *type_str, *mod, *addr_rem;
 		char type;
 		uint64_t addr;
+		size_t name_len;
 
 		addr_str = strtok_r(line, " \t\r\n", &save);
 		type_str = strtok_r(NULL,"  \t\r\n", &save);
@@ -167,11 +169,26 @@ static kcore_status_t read_proc_kallsyms(kcore_t *ctx, struct kallsyms *ks)
 				goto err;
 			}
 		}
+		name_len = strlen(name) + 1;
+		while (sbsize + name_len >= sballoc) {
+			sballoc = sballoc ? sballoc * 2 : 1024;
+			ks->strtab = realloc(ks->strtab, sballoc);
+			if (!ks->strtab) {
+				st = set_err(ctx, KCORE_MEMORY);
+				goto err;
+			}
+		}
+		strncpy(ks->strtab + sbsize, name, name_len);
 		ks->symbols[ks->count].addr = addr;
-		ks->symbols[ks->count].symbol = strdup(name);
+		ks->symbols[ks->count].symbol = (char *)sbsize;
 		ks->count++;
 		line_number++;
+		sbsize += name_len;
 	}
+	/* We stored offsets into the symbol field, to avoid the changing base
+	 * pointer as we realloc ks->strtab. We can now properly set them. */
+	for (size_t i = 0; i < ks->count; i++)
+		ks->symbols[i].symbol += (size_t)ks->strtab;
 
 	fclose(fp);
 	free(line);
@@ -181,7 +198,9 @@ err:
 	if (fp)
 		fclose(fp);
 	free(ks->symbols);
+	free(ks->strtab);
 	ks->symbols = NULL;
+	ks->strtab = NULL;
 	return st;
 }
 
@@ -640,7 +659,7 @@ static kcore_status_t kcore_sym_lookup_index(kcore_t *kcore, const char *name, s
 	void *res = bsearch(&ss, kcore->ks.name_index, kcore->ks.count,
 			    sizeof(kcore->ks.name_index[0]), symsearchcmp);
 	if (!res)
-		return KCORE_NOT_FOUND;
+		return set_err(kcore, KCORE_NOT_FOUND);
 	*index = *(size_t *)res;
 	return KCORE_OK;
 }
@@ -650,7 +669,7 @@ kcore_status_t kcore_sym_lookup(kcore_t *kcore, const char *name, uint64_t *addr
 	void *res = bsearch(&ss, kcore->ks.name_index, kcore->ks.count,
 			    sizeof(kcore->ks.name_index[0]), symsearchcmp);
 	if (!res)
-		return KCORE_NOT_FOUND;
+		return set_err(kcore, KCORE_NOT_FOUND);
 	*addr = kcore->ks.symbols[*(size_t *)res].addr;
 	return KCORE_OK;
 }
