@@ -1,4 +1,5 @@
 LDFLAGS := -lkdumpfile
+CFLAGS := -g
 
 .PHONY: all
 all: cmdline
