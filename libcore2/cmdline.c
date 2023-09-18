@@ -17,11 +17,18 @@ int main(int argc, char **argv)
 {
 	kcore_status_t ks;
 	kcore_t *ctx = kcore_alloc();
+	char *core = "/proc/kcore";
+	char *ctf = NULL;
 
 	if (!ctx)
 		fail("memory allocation");
 
-	ks = kcore_init(ctx, "/proc/kcore", NULL);
+	if (argc >= 2)
+		core = argv[1];
+	if (argc >= 3)
+		ctf = argv[2];
+
+	ks = kcore_init(ctx, core, ctf);
 	if (ks != KCORE_OK)
 		kcore_fail(ctx, "kcore_init");
 
