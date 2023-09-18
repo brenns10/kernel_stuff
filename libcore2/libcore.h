@@ -116,4 +116,6 @@ sym_n(8);
 /* Read arbitrary data */
 kcore_status_t kcore_read(kcore_t *ctx, uint64_t addr, void *buf, size_t bytes);
 
+kcore_status_t kcore_read_string(kcore_t *ctx, uint64_t addr, char **buf_ret);
+
 #endif // LIBCORE_H_

@@ -715,6 +715,14 @@ kcore_status_t kcore_read(kcore_t *ctx, uint64_t addr, void *buf, size_t len)
 	return KCORE_OK;
 }
 
+kcore_status_t kcore_read_string(kcore_t *ctx, uint64_t addr, char **buf_ret)
+{
+	kdump_status s = kdump_read_string(ctx->kdump_ctx, KDUMP_KVADDR, addr, buf_ret);
+	if (s != KDUMP_OK)
+		return set_kdumpfile_err(ctx, s);
+	return KCORE_OK;
+}
+
 //////////////////////////////////
 // CTF
 
