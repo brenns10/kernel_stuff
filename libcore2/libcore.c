@@ -845,7 +845,7 @@ static kcore_status_t init_vmcoreinfo(kcore_t *ctx)
 			goto out;
 		}
 		memcpy(ctx->osrelease, start, len);
-		ctx->osrelease[len + 1] = '\0';
+		ctx->osrelease[len] = '\0';
 	}
 
 	ctx->vmcoreinfo = strdup(vmcoreinfo);
