@@ -1,4 +1,4 @@
-LDFLAGS := -lkdumpfile
+LDLIBS := -lkdumpfile -lctf
 CFLAGS := -g
 
 .PHONY: all

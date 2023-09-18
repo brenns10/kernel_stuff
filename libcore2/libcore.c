@@ -12,6 +12,9 @@
 #include <linux/version.h>
 
 #include <libkdumpfile/kdumpfile.h>
+#include <ctf.h>
+#include <ctf-api.h>
+
 #include "libcore.h"
 
 struct sym {
@@ -31,11 +34,16 @@ struct kcore {
 	int core_fd;
 	kdump_ctx_t *kdump_ctx;
 	uint32_t kernel_version;
+	char *osrelease;
+	char *vmcoreinfo;
+	ctf_archive_t *ctf;
+	char *ctf_buf;
 
 	/* Error info */
 	kcore_status_t last_err;
 	union {
 		int kcore_errno;
+		int ctf_errnum;
 		kdump_status kcore_kdump_status;
 		char *kcore_formatted;
 	};
@@ -83,6 +91,12 @@ static kcore_status_t set_kdumpfile_err(kcore_t *ctx, kdump_status ks)
 	return set_err(ctx, KCORE_ERR_LIBKDUMPFILE);
 }
 
+static kcore_status_t set_ctf_err(kcore_t *ctx, int err)
+{
+	ctx->ctf_errnum = err;
+	return set_err(ctx, KCORE_ERR_CTF);
+}
+
 kcore_status_t set_err_fmt(kcore_t *ctx, const char *fmt, ...)
 {
 	char *result = NULL;
@@ -108,6 +122,8 @@ void kcore_fail(kcore_t *ctx, const char *fmt, ...)
 		fprintf(stderr, ": kcore OS error: %s\n", strerror(ctx->kcore_errno));
 	} else if (ctx->last_err == KCORE_ERR_LIBKDUMPFILE) {
 		fprintf(stderr, ": kdumpfile error: %s\n", kdump_strerror(ctx->kcore_kdump_status));
+	} else if (ctx->last_err == KCORE_ERR_CTF) {
+		fprintf(stderr, ": libctf error: %s\n", ctf_errmsg(ctx->ctf_errnum));
 	} else {
 		fprintf(stderr, ": %s\n", kcore_errmsg(ctx->last_err));
 	}
@@ -700,6 +716,83 @@ kcore_status_t kcore_read(kcore_t *ctx, uint64_t addr, void *buf, size_t len)
 }
 
 //////////////////////////////////
+// CTF
+
+static kcore_status_t kcore_ctf_load(kcore_t *ctx, const char *file)
+{
+	long size, amt;
+	char *buf;
+	FILE *f = fopen(file, "r");
+
+	if (!f)
+		return set_os_err(ctx);
+
+	if (fseek(f, 0, SEEK_END) == -1) {
+		fclose(f);
+		return set_os_err(ctx);
+	}
+	size = ftell(f);
+	fseek(f, 0, SEEK_SET);
+	buf = malloc(size + 1);
+	if (!buf) {
+		fclose(f);
+		return set_err(ctx, KCORE_MEMORY);
+	}
+	amt = fread(buf, 1, size, f);
+	if (amt != size) {
+		free(buf);
+		fclose(f);
+		return set_os_err(ctx);
+	}
+	fclose(f);
+	buf[size] = '\0';
+
+	int errnum;
+	ctf_sect_t data = {0};
+	data.cts_data = buf;
+	data.cts_size = size;
+	ctx->ctf = ctf_arc_bufopen(&data, NULL, NULL, &errnum);
+	if (!ctx->ctf) {
+		free(buf);
+		return set_ctf_err(ctx, errnum);
+	}
+	ctx->ctf_buf = buf;
+	return KCORE_OK;
+}
+
+static kcore_status_t kcore_ctf_init(kcore_t *ctx, const char *ctf)
+{
+	if (ctf)
+		return kcore_ctf_load(ctx, ctf);
+
+	char *path = NULL;
+	asprintf(&path, "/lib/modules/%s/kernel/vmlinux.ctfa", ctx->osrelease);
+	if (!path)
+		return set_err(ctx, KCORE_MEMORY);
+
+	struct stat buf;
+	if (stat(path, &buf) < 0) {
+		if (errno != ENOENT) {
+			free(path);
+			return set_os_err(ctx);
+		}
+		fprintf(stderr, "warning: CTF data for \"%s\" not found\n",
+			ctx->osrelease);
+		/*
+		 * TODO: it seems reasonable to allow execution to continue
+		 * without CTF data, for simple programs that won't require
+		 * structure offset info. Maybe we should make this an option
+		 * that callers give at initialization time. As of now, we just
+		 * print a warning and continue.
+		 */
+		return KCORE_OK;
+	}
+	kcore_status_t st = kcore_ctf_load(ctx, path);
+	free(path);
+	return st;
+}
+
+//////////////////////////////////
 // Initialization & destruction
 
 kcore_t *kcore_alloc(void)
@@ -716,6 +809,45 @@ static bool use_kallsyms_vmcoreinfo(void)
 {
 	const char *env = getenv("KCORE_USE_KALLSYMS_VMCOREINFO");
 	return env && (*env == 'y' || *env == 'Y' || *env == '1');
+}
+
+static kcore_status_t init_vmcoreinfo(kcore_t *ctx)
+{
+	kcore_status_t st = KCORE_OK;
+	kdump_status ks;
+#if KDUMPFILE_VERSION >= KDUMPFILE_MKVER(0, 4, 1)
+	char *vmcoreinfo;
+#else
+	const char *vmcoreinfo;
+#endif
+	ks = kdump_vmcoreinfo_raw(ctx->kdump_ctx, &vmcoreinfo);
+	if (ks != KDUMP_OK)
+		return set_kdumpfile_err(ctx, ks);
+
+	/* All Linux vmcoreinfo I've seen starts with OSRELEASE= at the
+	 * beginning, so there's not much need to go searching for it. */
+	#define KEY "OSRELEASE="
+	if (strncmp(vmcoreinfo, KEY, sizeof(KEY) - 1) == 0) {
+		const char *start = vmcoreinfo + sizeof(KEY) - 1;
+		const char *eol = strchr(start, '\n');
+		int len = eol - start;
+		ctx->osrelease = malloc(len + 1);
+		if (!ctx->osrelease) {
+			st = set_err(ctx, KCORE_MEMORY);
+			goto out;
+		}
+		memcpy(ctx->osrelease, start, len);
+		ctx->osrelease[len + 1] = '\0';
+	}
+
+	ctx->vmcoreinfo = strdup(vmcoreinfo);
+	if (!ctx->vmcoreinfo)
+		st = set_err(ctx, KCORE_MEMORY);
+out:
+#if KDUMPFILE_VERSION >= KDUMPFILE_MKVER(0, 4, 1)
+	free(vmcoreinfo);
+#endif
+	return st;
 }
 
 kcore_status_t kcore_init(kcore_t *ctx, const char *path, const char *ctf)
@@ -755,6 +887,9 @@ kcore_status_t kcore_init(kcore_t *ctx, const char *path, const char *ctf)
 		goto out;
 	}
 	ctx->kernel_version = (uint32_t)version_code;
+	st = init_vmcoreinfo(ctx);
+	if (st != KCORE_OK)
+		goto out;
 
 	/* Initialize kallsyms */
 	if (strcmp(path, "/proc/kcore") == 0 && !use_kallsyms_vmcoreinfo()) {
@@ -769,6 +904,11 @@ kcore_status_t kcore_init(kcore_t *ctx, const char *path, const char *ctf)
 		if (st != KCORE_OK)
 			goto out;
 	}
+
+	/* Initialize libctf */
+	st = kcore_ctf_init(ctx, ctf);
+	if (st != KCORE_OK)
+		goto out;
 
 	return KCORE_OK;
 out:
@@ -785,7 +925,10 @@ out:
 
 void kcore_free(kcore_t *ctx)
 {
+	ctf_close(ctx->ctf);
+	free(ctx->ctf_buf);
 	kallsyms_free(&ctx->ks);
+	kdump_free(ctx->kdump_ctx);
 	close(ctx->core_fd);
 	free(ctx);
 }
