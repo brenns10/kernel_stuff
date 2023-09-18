@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 		kcore_fail(ctx, "kcore_init");
 
 	uint64_t cmdline_ptr = kcore_sym_u64_n(ctx, "saved_command_line");
-	uint32_t cmdline_len = kcore_sym_u64_n(ctx, "saved_command_line_len");
+	uint32_t cmdline_len = kcore_sym_u32_n(ctx, "saved_command_line_len");
 
 	char *cmdline = malloc(cmdline_len + 1);
 	if (!cmdline)

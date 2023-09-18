@@ -9,9 +9,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
 #include <linux/version.h>
 
+#include <libkdumpfile/kdumpfile.h>
 #include "libcore.h"
 
 struct sym {
@@ -759,14 +759,14 @@ kcore_status_t kcore_init(kcore_t *ctx, const char *path, const char *ctf)
 	/* Initialize kallsyms */
 	if (strcmp(path, "/proc/kcore") == 0 && !use_kallsyms_vmcoreinfo()) {
 		st = read_proc_kallsyms(ctx, &ctx->ks);
-		if (st != KDUMP_OK)
+		if (st != KCORE_OK)
 			goto out;
 		st = index_names(ctx, &ctx->ks);
-		if (st != KDUMP_OK)
+		if (st != KCORE_OK)
 			goto out;
 	} else {
 		st = read_kallsyms_vmcoreinfo(ctx);
-		if (st != KDUMP_OK)
+		if (st != KCORE_OK)
 			goto out;
 	}
 

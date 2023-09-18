@@ -12,9 +12,8 @@
 #ifndef LIBCORE_H_
 #define LIBCORE_H_
 
-#include <libkdumpfile/kdumpfile.h>
-
 #include <stdint.h>
+#include <stddef.h>
 
 typedef struct kcore kcore_t;
 
