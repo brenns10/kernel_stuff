@@ -33,17 +33,25 @@ int main(int argc, char **argv)
 		kcore_fail(ctx, "kcore_init");
 
 	uint64_t cmdline_ptr = kcore_sym_u64_n(ctx, "saved_command_line");
-	uint32_t cmdline_len = kcore_sym_u32_n(ctx, "saved_command_line_len");
+	uint64_t len_addr;
+	char *cmdline;
+	ks = kcore_sym_lookup(ctx, "saved_command_line_len", &len_addr);
+	if (ks == KCORE_OK) {
+		uint32_t cmdline_len = kcore_read_u32_n(ctx, len_addr);
+		char *cmdline = malloc(cmdline_len + 1);
+		if (!cmdline)
+			fail("allocation error");
 
-	char *cmdline = malloc(cmdline_len + 1);
-	if (!cmdline)
-		fail("allocation error");
+		ks = kcore_read(ctx, cmdline_ptr, cmdline, cmdline_len);
+		if (ks != KCORE_OK)
+			kcore_fail(ctx, "kdump_read(cmdline)");
+		cmdline[cmdline_len] = '\0';
+	} else {
+		ks = kcore_read_string(ctx, cmdline_ptr, &cmdline);
+		if (ks != KCORE_OK)
+			kcore_fail(ctx, "kdump_read_string(cmdline)");
+	}
 
-	ks = kcore_read(ctx, cmdline_ptr, cmdline, cmdline_len);
-	if (ks != KCORE_OK)
-		kcore_fail(ctx, "kdump_read(cmdline)");
-
-	cmdline[cmdline_len] = '\0';
 	printf("cmdline: %s\n", cmdline);
 
 	free(cmdline);
