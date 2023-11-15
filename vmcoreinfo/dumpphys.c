@@ -80,18 +80,28 @@ int dump_page(void *arg, uint64_t addr, uint64_t len, uint8_t *buf)
 	return (rv < 0) ? -1 : 0;
 }
 
-int check_vmcoreinfo(void *arg, uint64_t addr, uint64_t len, uint8_t *buf)
+struct vmcoreinfo_arg {
+	int fd;
+	bool should_continue;
+	int found_count;
+};
+
+int check_vmcoreinfo(void *varg, uint64_t addr, uint64_t len, uint8_t *buf)
 {
-	int *pFd = arg;
+	struct vmcoreinfo_arg *arg = varg;
 	if (strncmp("OSRELEASE=", (char *)buf, 10) == 0) {
 		int len = strlen((char *)buf);
-		write(*pFd, (char *)buf, len);
-		return -1;
+		write(arg->fd, (char *)buf, len);
+		arg->found_count += 1;
+		if (arg->should_continue)
+			write(arg->fd, "---\n", 4);
+		else
+			return -1;
 	}
 	return 0;
 }
 
-int for_each_present_page(kdump_ctx_t *ctx, struct memory_info *mi, page_fn fn, void *arg, bool verbose, bool persist)
+int count_pages(kdump_ctx_t *ctx, struct memory_info *mi, page_fn fn, void *arg, bool verbose, bool persist)
 {
 	kdump_status ks;
 	kdump_addr_t addr = 0;
@@ -157,6 +167,7 @@ void help(void)
 		"  -o, --output OUTPUT  specifies where to write output (default: stdout)\n"
 		"  --vmcoreinfo, -i     if flag is active, searches for vmcoreinfo rather than\n"
 		"                       dumping all memory contents.\n"
+		"  -I                   same as -i, but keeps searching after finding one\n"
 		"  --verbose, -v        prints information about progress to stderr\n"
 		"  --persist, -p        continue trying to read pages of data even after we\n"
 		"                       encounter a read error\n"
@@ -171,14 +182,17 @@ int main(int argc, char **argv)
 	kdump_status ks;
 	struct memory_info mi;
 	int in_fd = -1;
-	int out_fd = STDOUT_FILENO;
 	int rv;
 	page_fn op = dump_page;
 	bool verbose = false;
 	bool persist = false;
+	struct vmcoreinfo_arg via = {
+		.fd = STDOUT_FILENO,
+		.should_continue = false,
+	};
 
 	int opt;
-	const char *shopt = "c:o:ivhp";
+	const char *shopt = "c:o:iIvhp";
 	static struct option lopt[] = {
 		{"core",       required_argument, NULL, 'c'},
 		{"output",     required_argument, NULL, 'o'},
@@ -199,10 +213,12 @@ int main(int argc, char **argv)
 					perror_fail("open vmcore");
 				break;
 			case 'o':
-				out_fd = open(optarg, O_WRONLY | O_CREAT);
-				if (out_fd < 0)
+				via.fd = open(optarg, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+				if (via.fd < 0)
 					perror_fail("open output");
 				break;
+			case 'I':
+				via.should_continue = true;
 			case 'i':
 				op = check_vmcoreinfo;
 				break;
@@ -236,10 +252,11 @@ int main(int argc, char **argv)
 		     kdump_get_err(ctx));
 
 	get_memory_info(ctx, &mi);
-	rv = for_each_present_page(ctx, &mi, op, &out_fd, verbose, persist);
-	if (rv == 0 && op == check_vmcoreinfo) {
+	rv = count_pages(ctx, &mi, op, &via, verbose, persist);
+	if (op == check_vmcoreinfo && via.found_count > 1)
+		fprintf(stderr, "found %d vmcoreinfo-like notes\n", via.found_count);
+	else if (rv == 0 && via.found_count == 0 && op == check_vmcoreinfo)
 		fprintf(stderr, "error: could not find anything that looks like vmcoreinfo\n");
-	}
 	kdump_free(ctx);
 	return rv ? EXIT_FAILURE : EXIT_SUCCESS;
 }
