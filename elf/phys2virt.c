@@ -1,8 +1,10 @@
+#define _GNU_SOURCE
+#include <byteswap.h>
+#include <getopt.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <byteswap.h>
 
 #include <elf.h>
 
@@ -39,19 +41,14 @@ static int endian(void)
 		return ELFDATA2MSB;
 }
 
-int main(int argc, char **argv)
+int phys2virt(char *filename, bool zero)
 {
-	char *filename;
 	FILE *f;
 	Elf64_Ehdr hdr;
 	Elf64_Phdr *phdrs;
 	off_t phoff;
 	int phnum, phentsize;
 
-	if (argc != 2 || strcmp(argv[1], "-h") == 0)
-		usage();
-
-	filename = argv[1];
 	f = fopen(filename,  "r+");
 	if (!f)
 		perror_fail("open");
@@ -87,8 +84,12 @@ int main(int argc, char **argv)
 	if (fread(phdrs, phentsize, phnum, f) != phnum)
 		perror_fail("fread phdrs");
 
-	for (int i = 0; i < phnum; i++)
-		phdrs[i].p_vaddr = phdrs[i].p_paddr;
+	for (int i = 0; i < phnum; i++) {
+		if (zero)
+			phdrs[i].p_vaddr = 0;
+		else
+			phdrs[i].p_vaddr = phdrs[i].p_paddr;
+	}
 
 	if (fseek(f, phoff, SEEK_SET) < 0)
 		perror_fail("fseek");
@@ -97,4 +98,38 @@ int main(int argc, char **argv)
 
 	fclose(f);
 	return EXIT_SUCCESS;
+}
+
+int main(int argc, char **argv)
+{
+	char *filename;
+	bool zero = false;
+	int opt;
+	const char *shopt = "hz";
+	static struct option lopt[] = {
+		{"zero",       no_argument,       NULL, 'z'},
+		{"help",       no_argument,       NULL, 'h'},
+		{0},
+	};
+
+	while ((opt = getopt_long(argc, argv, shopt, lopt, NULL)) != -1) {
+		switch (opt) {
+			case 'h':
+				usage();
+				break;
+			case 'z':
+				zero = true;
+				break;
+			default:
+				fail("invalid argument\n");
+		}
+	}
+
+	argc -= optind;
+	if (argc != 1)
+		usage();
+
+	filename = argv[optind];
+
+	return phys2virt(filename, zero);
 }
