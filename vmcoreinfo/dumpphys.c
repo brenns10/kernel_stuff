@@ -57,6 +57,10 @@ void get_memory_info(kdump_ctx_t *ctx, struct memory_info *meminfo)
 	if (ks != KDUMP_OK)
 		fail("kdump_get_number_attr(KDUMP_ATTR_PAGE_SIZE): %s\n",
 		     kdump_get_err(ctx));
+	if (meminfo->page_size == 0) {
+		fprintf(stderr, "warning: page_size set to zero, using a default of 4096\n");
+		meminfo->page_size = 4096;
+	}
 
 	ks = kdump_get_number_attr(ctx, KDUMP_ATTR_PAGE_SHIFT, &meminfo->page_shift);
 	if (ks != KDUMP_OK)
@@ -84,15 +88,34 @@ struct vmcoreinfo_arg {
 	int fd;
 	bool should_continue;
 	int found_count;
+	bool search_within_page;
+	kdump_ctx_t *ctx;
 };
 
 int check_vmcoreinfo(void *varg, uint64_t addr, uint64_t len, uint8_t *buf)
 {
 	struct vmcoreinfo_arg *arg = varg;
-	if (strncmp("OSRELEASE=", (char *)buf, 10) == 0) {
-		int len = strlen((char *)buf);
-		write(arg->fd, (char *)buf, len);
+	void *found;
+	if (!arg->search_within_page && strncmp("OSRELEASE=", (char *)buf, 10) == 0) {
+		int vmcoreinfo_len = strlen((char *)buf);
+		write(arg->fd, (char *)buf, vmcoreinfo_len);
 		arg->found_count += 1;
+		if (arg->should_continue)
+			write(arg->fd, "---\n", 4);
+		else
+			return -1;
+	} else if (arg->search_within_page){
+		if(!(found = memmem(buf, len, "OSRELEASE=", 10)))
+			return 0;
+		char *str;
+		kdump_status st = kdump_read_string(arg->ctx, KDUMP_MACHPHYSADDR,
+						    addr + (found - (void *)buf), &str);
+		if (st != KDUMP_OK) {
+			fprintf(stderr, "error reading string: %s\n", kdump_strerror(st));
+			return -1;
+		}
+		write(arg->fd, str, strlen(str));
+		free(str);
 		if (arg->should_continue)
 			write(arg->fd, "---\n", 4);
 		else
@@ -139,7 +162,7 @@ int count_pages(kdump_ctx_t *ctx, struct memory_info *mi, page_fn fn, void *arg,
 				continue;
 			}
 			pages_read += 1;
-			int rv = fn(arg, offset << mi->page_shift, mi->page_size - len, (uint8_t *)buf);
+			int rv = fn(arg, offset << mi->page_shift, len, (uint8_t *)buf);
 			if (rv < 0) {
 				free(buf);
 				return rv;
@@ -168,6 +191,8 @@ void help(void)
 		"  --vmcoreinfo, -i     if flag is active, searches for vmcoreinfo rather than\n"
 		"                       dumping all memory contents.\n"
 		"  -I                   same as -i, but keeps searching after finding one\n"
+		"  --flexible, -f       when searching for vmcoreinfo, also search outside of\n"
+		"                       page boundaries. Useful for older kernels\n"
 		"  --verbose, -v        prints information about progress to stderr\n"
 		"  --persist, -p        continue trying to read pages of data even after we\n"
 		"                       encounter a read error\n"
@@ -189,10 +214,11 @@ int main(int argc, char **argv)
 	struct vmcoreinfo_arg via = {
 		.fd = STDOUT_FILENO,
 		.should_continue = false,
+		.search_within_page = false,
 	};
 
 	int opt;
-	const char *shopt = "c:o:iIvhp";
+	const char *shopt = "c:o:iIvhpf";
 	static struct option lopt[] = {
 		{"core",       required_argument, NULL, 'c'},
 		{"output",     required_argument, NULL, 'o'},
@@ -200,6 +226,7 @@ int main(int argc, char **argv)
 		{"verbose",    no_argument,       NULL, 'v'},
 		{"help",       no_argument,       NULL, 'h'},
 		{"persist",    no_argument,       NULL, 'p'},
+		{"flexible",   no_argument,       NULL, 'f'},
 		{0},
 	};
 	while ((opt = getopt_long(argc, argv, shopt, lopt, NULL)) != -1) {
@@ -228,6 +255,9 @@ int main(int argc, char **argv)
 			case 'p':
 				persist = true;
 				break;
+			case 'f':
+				via.search_within_page = true;
+				break;
 			default:
 				fprintf(stderr, "Invalid argument\n");
 				exit(EXIT_FAILURE);
@@ -241,6 +271,7 @@ int main(int argc, char **argv)
 	if (!ctx)
 		fail("kdump_new() failed\n");
 
+	via.ctx = ctx;
 	ks = kdump_set_number_attr(ctx, KDUMP_ATTR_FILE_FD, in_fd);
 	if (ks != KDUMP_OK)
 		fail("kdump_set_number_attr(KDUMP_ATTR_FILE_FD): %s\n",
