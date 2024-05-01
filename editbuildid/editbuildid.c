@@ -86,7 +86,7 @@ struct elfinfo {
 			Elf32_ ## typ *ptr = (Elf32_ ## typ *)ptr_;		\
 			_result32 = ptr->field;				\
 			if (info->endian != platform_endian())			\
-				_result32 = bswap_32(_result);			\
+				_result32 = bswap_32(_result32);		\
 			_result = _result32;					\
 		} else {							\
 			fprintf(stderr, "Invalid ELF class: %d\n", info->bits); \
