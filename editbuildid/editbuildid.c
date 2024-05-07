@@ -464,7 +464,9 @@ void help(void)
 		"  -n, --new BUILD-ID   specify the new BUILD-ID value\n"
 		"  -p, --print          print the current build ID value and exit\n"
 		"  -v, --verbose        print informational messages\n"
-		"  -h, --help           print this message and exit"
+		"  -h, --help           print this message and exit\n"
+		"\n"
+		"Stephen Brennan <stephen.s.brennan@oracle.com>"
 	);
 	exit(EXIT_SUCCESS);
 }

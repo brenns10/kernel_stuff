@@ -196,7 +196,9 @@ void help(void)
 		"  --verbose, -v        prints information about progress to stderr\n"
 		"  --persist, -p        continue trying to read pages of data even after we\n"
 		"                       encounter a read error\n"
-		"  --help, -h           print this message and exit"
+		"  --help, -h           print this message and exit\n"
+		"\n"
+		"Stephen Brennan <stephen.s.brennan@oracle.com>"
 	);
 	exit(EXIT_SUCCESS);
 }
