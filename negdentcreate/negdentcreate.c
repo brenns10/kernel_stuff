@@ -102,11 +102,31 @@ static int do_unlink(int dirfd, const char *filename)
 	return 0;
 }
 
+static int do_create_unlink(int dirfd, const char *filename)
+{
+	int fd = openat(dirfd, filename, O_WRONLY | O_CREAT, 0644);
+	if (fd < 0) {
+		perror("openat");
+		return -1;
+	}
+	if (close(fd) != 0) {
+		perror("close");
+		return -1;
+	}
+	int rv = unlinkat(dirfd, filename, 0);
+	if (rv < 0) {
+		perror("openat");
+		return -1;
+	}
+	return 0;
+}
+
 struct { char *name; work_op_t op; } OPERATIONS[] = {
 	{ "stat", do_stat },
 	{ "open", do_open },
 	{ "create", do_create },
 	{ "unlink", do_unlink },
+	{ "create_unlink", do_create_unlink },
 };
 
 static void *stat_worker(void *varg)
@@ -142,20 +162,25 @@ static void *stat_worker(void *varg)
 void help(void)
 {
 	printf("negdentcreate is a tool for creating negative dentries\n\n");
-	printf("Currently, it can only create them by calling stat() on files which do\n");
-	printf("not exist. However, it could be extended to allow creating dentries by\n");
-	printf("creating files and then deleting them. This tool tries to be performant\n");
-	printf("by allowing you to tweak the number of threads used. However, know that\n");
-	printf("more threads is not necessarily better, as the cost of lock contention\n");
-	printf("may outweigh the gains of parallelism.\n\n");
+
+	printf("It creates predictable numeric filenames and divides them up among many\n");
+	printf("threads, where each thread does an 'operation'. By default, they simply\n");
+	printf("run stat(filename), which results in the creation of a negative dentry.\n");
+	printf("In addition to stat(), an alternative is to create and unlink a file,\n");
+	printf("which also creates a negative dentry, but it is much slower since file\n");
+	printf("creation usually involves filesystem I/O. Finally, negdentcreate also\n");
+	printf("supports operations like 'open' or 'create' or 'unlink', and it can run\n");
+	printf("these operations in an endless loop, to generate silly filesystem load.\n\n");
 	printf("Options:\n");
-	printf("  -t, --threads <N>  use N threads (default 1)\n");
-	printf("  -c, --count <N>    create N negative dentries (default 1000)\n");
-	printf("  -p, --path <PATH>  create negative dentries in PATH\n");
-	printf("  -P, --pfx  <STR>   name dentries with STR + 10-digit number\n");
-	printf("                     (default is \"file-\")\n");
-	printf("  -o, --op <STR>     operation (choices: stat, open, create, unlink)\n");
-	printf("  -l, --loop         loop continuously, re-accessing\n");
+	printf("  -t, --threads <N>  distribute work across N threads (default 1)\n");
+	printf("  -c, --count <N>    create N filenames (default 1000)\n");
+	printf("  -p, --path <PATH>  create negative dentries / files in PATH\n");
+	printf("  -P, --pfx  <STR>   prefix for filenames. Each file is named with this\n");
+	printf("                     prefix followed by a zero-based index. The default\n");
+	printf("                     is \"file-\"), resulting in: file-0000000000\n");
+	printf("  -o, --op <STR>     operation (choices: stat, open, create, unlink,\n");
+	printf("                     or create_unlink)\n");
+	printf("  -l, --loop         loop continuously\n");
 	printf("  -h, --help         show this message and exit.\n");
 	exit(EXIT_SUCCESS);
 }
