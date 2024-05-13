@@ -301,11 +301,13 @@ int main(int argc, char **argv)
 			progress += cur->cnt * (cur->stop - cur->start);
 			err += cur->error;
 		}
-		printf("progress: %10lu/%10lu\n", progress, count);
+		printf("progress: %10lu/%10lu\r", progress, count);
+		fflush(stdout);
 		tv.tv_nsec = 100 * 1000 * 1000; /* 100ms */
 		tv.tv_sec = 0;
 		nanosleep(&tv, NULL);
 	} while ((progress < count || loop) && err == 0 && !exiting);
+	fputc('\n', stdout);
 
 	if (err) {
 		fprintf(stderr, "error detected! canceling threads\n");
