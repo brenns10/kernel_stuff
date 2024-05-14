@@ -21,7 +21,7 @@ Options:
                      prefix followed by a zero-based index. The default
                      is "file-"), resulting in: file-0000000000
   -o, --op <STR>     operation (choices: stat, open, create, unlink,
-                     or create_unlink)
+                     create_unlink_close, or create_close_unlink)
   -l, --loop         loop continuously
   -h, --help         show this message and exit.
 ```

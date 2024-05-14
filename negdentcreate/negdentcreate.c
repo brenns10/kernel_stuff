@@ -102,7 +102,7 @@ static int do_unlink(int dirfd, const char *filename)
 	return 0;
 }
 
-static int do_create_unlink(int dirfd, const char *filename)
+static int do_create_close_unlink(int dirfd, const char *filename)
 {
 	int fd = openat(dirfd, filename, O_WRONLY | O_CREAT, 0644);
 	if (fd < 0) {
@@ -121,12 +121,32 @@ static int do_create_unlink(int dirfd, const char *filename)
 	return 0;
 }
 
+static int do_create_unlink_close(int dirfd, const char *filename)
+{
+	int fd = openat(dirfd, filename, O_WRONLY | O_CREAT, 0644);
+	if (fd < 0) {
+		perror("openat");
+		return -1;
+	}
+	int rv = unlinkat(dirfd, filename, 0);
+	if (rv < 0) {
+		perror("openat");
+		return -1;
+	}
+	if (close(fd) != 0) {
+		perror("close");
+		return -1;
+	}
+	return 0;
+}
+
 struct { char *name; work_op_t op; } OPERATIONS[] = {
 	{ "stat", do_stat },
 	{ "open", do_open },
 	{ "create", do_create },
 	{ "unlink", do_unlink },
-	{ "create_unlink", do_create_unlink },
+	{ "create_close_unlink", do_create_close_unlink },
+	{ "create_unlink_close", do_create_unlink_close },
 };
 
 static void *stat_worker(void *varg)
@@ -179,7 +199,7 @@ void help(void)
 	printf("                     prefix followed by a zero-based index. The default\n");
 	printf("                     is \"file-\"), resulting in: file-0000000000\n");
 	printf("  -o, --op <STR>     operation (choices: stat, open, create, unlink,\n");
-	printf("                     or create_unlink)\n");
+	printf("                     create_unlink_close, or create_close_unlink)\n");
 	printf("  -l, --loop         loop continuously\n");
 	printf("  -h, --help         show this message and exit.\n");
 	exit(EXIT_SUCCESS);
