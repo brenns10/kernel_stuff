@@ -14,12 +14,100 @@
 #include <assert.h>
 #include <string.h>
 #include <getopt.h>
+#include <time.h>
 
 #include <libkdumpfile/kdumpfile.h>
 #include <unistd.h>
 
 #define GB (1UL << 30)
 #define MB (1UL << 20)
+
+struct progress {
+	uint64_t total_bytes;
+	uint64_t current_bytes;
+
+	struct timespec start_time;
+	struct timespec last_update;
+	struct timespec update_interval;
+
+	bool print;
+};
+
+struct timespec timespec_sub(const struct timespec *a, const struct timespec *b)
+{
+	struct timespec ret = *a;
+	if (ret.tv_nsec < b->tv_nsec) {
+		ret.tv_sec -= 1;
+		ret.tv_nsec += 1000000000;
+	}
+	ret.tv_nsec -= b->tv_nsec;
+	ret.tv_sec -= b->tv_sec;
+	return ret;
+}
+
+long long timespec_cmp(const struct timespec *a, const struct timespec *b)
+{
+	if (a->tv_sec == b->tv_sec)
+		return a->tv_nsec - b->tv_nsec;
+	else
+		return a->tv_sec - b->tv_sec;
+}
+
+void progress_update(struct progress *prog, bool force, uint64_t add_bytes)
+{
+	struct timespec now, since_last, elapsed;
+	double percent, total_mb, curr_mb, seconds, mbps;
+
+	/* Don't bother unless we're in verbose mode */
+	if (!prog->print)
+		return;
+
+	/* Don't update unless we've passed the update interval. */
+	prog->current_bytes += add_bytes;
+	clock_gettime(CLOCK_MONOTONIC, &now);
+	since_last = timespec_sub(&now, &prog->last_update);
+	//fprintf(stderr, "since_last: %ld %ld\n", since_last.tv_sec, since_last.tv_nsec);
+	//fprintf(stderr, "update_interval: %ld %ld\n", prog->update_interval.tv_sec, prog->update_interval.tv_nsec);
+	if (!force && timespec_cmp(&since_last, &prog->update_interval) < 0)
+		return;
+
+	/* Compute and print progress */
+	prog->last_update = now;
+	percent = 100 * (double)prog->current_bytes / prog->total_bytes;
+	total_mb = ((double)prog->total_bytes / (2 << 20));
+	curr_mb = ((double)prog->current_bytes / (2 << 20));
+	elapsed = timespec_sub(&now, &prog->start_time);
+	seconds = (double)elapsed.tv_sec + (double)elapsed.tv_nsec / 1000000000;
+	mbps = 0;
+	if (seconds != 0)
+		mbps = curr_mb / seconds;
+	fprintf(stderr, "\r%10.2f / %10.2f MiB: %5.1f%% (%8.f MiB/s)",
+		curr_mb, total_mb, percent, mbps);
+	fflush(stderr);
+}
+
+void progress_complete(struct progress *prog)
+{
+	if (prog->print) {
+		progress_update(prog, true, 0);
+		fprintf(stderr, "\n");
+	}
+}
+
+void progress_init(struct progress *prog, bool verbose, uint64_t total_bytes)
+{
+	prog->print = verbose;
+	if (!verbose)
+		return;
+	prog->total_bytes = total_bytes;
+	prog->current_bytes = 0;
+
+	clock_gettime(CLOCK_MONOTONIC, &prog->start_time);
+	prog->update_interval.tv_nsec = 200000000; /* 200ms */
+	prog->update_interval.tv_sec = 0;
+	prog->last_update.tv_sec = 0;
+	prog->last_update.tv_nsec = 0;
+}
 
 void fail(const char *fmt, ...)
 {
@@ -152,11 +240,14 @@ int count_pages(kdump_ctx_t *ctx, struct memory_info *mi, page_fn fn, void *arg,
 		if (verbose)
 			fprintf(stderr, "Data present range: page frames 0x%lx - 0x%lx\n", begin, end);
 
+		struct progress prog;
+		progress_init(&prog, verbose, (end - begin) << mi->page_shift);
 		for (kdump_addr_t offset = begin; offset < end; offset++) {
 			size_t len = mi->page_size;
 			ks = kdump_read(ctx, KDUMP_MACHPHYSADDR, offset << mi->page_shift, buf, &len);
+			progress_update(&prog, false, mi->page_size); /* it's a "success" regardless */
 			if (ks != KDUMP_OK) {
-				fprintf(stderr, "kdump_read: %s\n", kdump_get_err(ctx));
+				fprintf(stderr, "\nkdump_read: %s\n", kdump_get_err(ctx));
 				if (!persist)
 					exit(EXIT_FAILURE);
 				continue;
@@ -164,10 +255,12 @@ int count_pages(kdump_ctx_t *ctx, struct memory_info *mi, page_fn fn, void *arg,
 			pages_read += 1;
 			int rv = fn(arg, offset << mi->page_shift, len, (uint8_t *)buf);
 			if (rv < 0) {
+				progress_complete(&prog);
 				free(buf);
 				return rv;
 			}
 		}
+		progress_complete(&prog);
 	}
 	if (verbose)
 		fprintf(stderr, "Processed %lu present pages (total: %lu). That's %lu MiB / %lu MiB\n",
