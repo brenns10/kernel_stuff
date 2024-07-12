@@ -74,14 +74,14 @@ void progress_update(struct progress *prog, bool force, uint64_t add_bytes)
 	/* Compute and print progress */
 	prog->last_update = now;
 	percent = 100 * (double)prog->current_bytes / prog->total_bytes;
-	total_mb = ((double)prog->total_bytes / (2 << 20));
-	curr_mb = ((double)prog->current_bytes / (2 << 20));
+	total_mb = ((double)prog->total_bytes / (1 << 20));
+	curr_mb = ((double)prog->current_bytes / (1 << 20));
 	elapsed = timespec_sub(&now, &prog->start_time);
 	seconds = (double)elapsed.tv_sec + (double)elapsed.tv_nsec / 1000000000;
 	mbps = 0;
 	if (seconds != 0)
 		mbps = curr_mb / seconds;
-	fprintf(stderr, "\r%10.2f / %10.2f MiB: %5.1f%% (%8.f MiB/s)",
+	fprintf(stderr, "\r%10.2f / %10.2f MiB: %5.1f%% (%7.1f MiB/s)",
 		curr_mb, total_mb, percent, mbps);
 	fflush(stderr);
 }
