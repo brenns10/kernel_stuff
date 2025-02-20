@@ -1,0 +1,79 @@
+#!/bin/bash
+# Create a tiny fake vmcore for testing. This is just a wrapper for the very
+# cool "mkdiskdump" testing program of libkdumpfile. All the interesting work is
+# done by Petr's excellent program.
+
+tmpdir=$(mktemp -d)
+trap "rm -rf $tmpdir" EXIT
+
+if [ "$1" = "-h" ]; then
+    echo "usage: mkvmcore [FILENAME [OSRELEASE]]"
+    echo
+    echo "FILENAME defaults to vmcore, if unspecified. OSRELEASE defaults to"
+    echo "an unspecified kernel version, if unspecified."
+    exit 1
+fi
+
+outputfile=${1:-vmcore}
+osrelease=${2:-5.15.0-100.96.32.el9uek.x86_64}
+
+case $osrelease in
+    *aarch64)
+        arch=aarch64
+        ;;
+    *)
+        arch=x86_64
+        ;;
+esac
+
+datafile="$tmpdir/data"
+dumpfile="$tmpdir/dump"
+vmcoreinfo="$tmpdir/vmcoreinfo"
+
+cat > "$datafile" <<EOF
+@0 raw
+00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
+EOF
+
+cat > "$vmcoreinfo" <<EOF
+OSRELEASE=$osrelease
+PAGESIZE=4096
+CRASHTIME=1689103980
+SYMBOL(swapper_pg_dir)=1000
+EOF
+
+./mkdiskdump "$dumpfile" <<EOF
+version = 3
+arch_name = x86_64
+block_size = 4096
+phys_base = 0
+max_mapnr = 0x1
+sub_hdr_size = 1
+
+uts.sysname = Linux
+uts.nodename = stephen-test
+uts.release = $osrelease
+uts.version = #2 SMP Tue Mar 28 18:03:18 PDT 2023
+uts.machine = $arch
+uts.domainname = (none)
+
+nr_cpus = 1
+
+DATA = $datafile
+VMCOREINFO = $vmcoreinfo
+EOF
+rc=$?
+if [ $rc -ne 0 ]; then
+    echo "Failed to create vmcore" >&2
+    exit $rc
+fi
+cp "$dumpfile" "$outputfile"
+echo "Created DISKDUMP dump: $outputfile"
+
+echo "May I suggest the following as a nice way to generate it?"
+echo
+cat <<MYEOF
+base64 -d <<EOF | gzip -d >$outputfile
+$(gzip <"$outputfile" | base64)
+EOF
+MYEOF
